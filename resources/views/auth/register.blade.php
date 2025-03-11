@@ -1,12 +1,19 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf
 
-        <!-- Name -->
+        <!-- First Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="first_name" :value="__('First Name')" />
+            <x-text-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required autofocus autocomplete="first_name" />
+            <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
+        </div>
+
+        <!-- Last Name -->
+        <div>
+            <x-input-label for="last_name" :value="__('Last Name')" />
+            <x-text-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required autofocus autocomplete="last_name" />
+            <x-input-error :messages="$errors->get('last_name')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -16,6 +23,31 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Username -->
+        <div class="mt-4">
+            <x-input-label for="username" :value="__("Username")" />
+            <input id="username" class="block mt-1 w-full" type="text" name="username" :value="old("username")" required autocomplete="username" />
+            <x-input-error :messages="$errors->get("email")" class="mt-2" />
+        </div>
+
+        <!-- Bio -->
+        <div class="mt-4">
+            <x-input-label for="bio" :value="__("Bio")" />
+            <textarea id="bio" class="block mt-1 w-full" type="text" name="bio" :value="old("bio")" required autocomplete="bio"></textarea>
+            <x-input-error :messages="$errors->get("bio")" class="mt-2" />
+        </div>
+
+        <!-- Public Account -->
+        <div class="mt-4">
+            <x-input-label for="public">Private account:</x-input-label>
+            <input type="checkbox" id="public" name="public" :value="old("public")">
+        </div>
+
+        <!-- Profile Picture -->
+        <div class="mt-4">
+            <x-input-label for="avatar">Profile Picture:</x-input-label>
+            <input type="file" id="avatar" name="avatar">
+        </div>
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
