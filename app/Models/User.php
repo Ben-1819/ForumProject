@@ -25,7 +25,6 @@ class User extends Authenticatable
         "username",
         "avatar",
         "bio",
-        "status",
         "public",
     ];
 
