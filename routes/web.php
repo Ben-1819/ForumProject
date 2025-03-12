@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -41,4 +42,10 @@ Route::name("friend.")->prefix("/friend")->controller(FriendController::class)->
     Route::patch("/reject/{id}", "rejectRequest")->name("reject");
     Route::delete("/remove/{id}", "removeFriend")->name("remove");
 });
+
+Route::name("post.")->prefix("/post")->controller(PostController::class)->group(function(){
+    Route::get("/create", "create")->name("create");
+    Route::post("", "store")->name("store");
+});
+
 require __DIR__.'/auth.php';
