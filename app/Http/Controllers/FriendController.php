@@ -78,6 +78,16 @@ class FriendController extends Controller
 
         return redirect()->back()->with("Message", "Friend is not Favourite Anymore");
     }
+
+    public function favourites(){
+        log::info("Returning all records from the friends table where either user_ids match the current users_id and favourite is true");
+        $all_favourites = Friend::where("user1_id", request()->user()->id)->orWhere("user2_id", request()->user()->id)
+            ->where("favourite", true)
+            ->get();
+
+        log::info("Returning to the favourites view");
+        return view("friend.favourite", compact("all_favourites"));
+    }
     /**
      * Display the specified resource.
      */

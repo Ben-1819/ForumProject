@@ -32,6 +32,7 @@ Route::name("user.")->prefix("/user")->controller(UserController::class)->group(
 
 Route::name("friend.")->prefix("/friend")->controller(FriendController::class)->group(function(){
     Route::get("/index", "index")->name("index");
+    Route::get("/favourites", "favourites")->name("favourites");
     Route::patch("/add/favourite/{id}", "addFavourite")->name("addFavourite");
     Route::patch("/remove/favourite/{id}", "removeFavourite")->name("removeFavourite");
     Route::post("/request/{id}", "sendRequest")->name("request");
