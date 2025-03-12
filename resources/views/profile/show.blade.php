@@ -16,16 +16,16 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <label>First name: {{$user->first_name}}</label>
-
                     <br>
                     <label>Last Name: {{$user->last_name}}</label>
                     <br>
                     <label>Email address: {{$user->email}}</label>
                     <br>
-                    <?php
-                        $user = request()->user();
-                    ?>
-                    <x-profile-picture/>
+                    <label>Bio:</label>
+                    <textarea readonly>{{$user->bio}}</textarea>
+                    <a href="{{route("profile.editBio")}}" class="border-2 border-solid border-red-500">
+                        Update your bio
+                    </a>
                 </div>
                 <form action="{{route("profile.edit")}}" method="get">
                     @csrf

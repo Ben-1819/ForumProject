@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
+use App\Http\Requests\BioUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -41,6 +44,23 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    public function editBio(Request $request){
+        log::info("Showing bio update review");
+        return view("profile.bio-update", [
+            "user" => $request->user(),
+        ]);
+    }
+
+    public function updateBio(BioUpdateRequest $request, User $user){
+        log::info("Validate the input and update the record in the users table");
+        $update_Bio = User::where("id", $request->user_id)->update($request->validated());
+        log::info("Bio has been updated");
+        log::info("New Bio: {bio}", ["bio" => $request->bio]);
+
+        log::info("Returning to profile.show view");
+        return redirect()->route("profile.show");
     }
 
     /**
