@@ -51,9 +51,13 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        log::info("Get the record from the posts table where the id matches");
+        $post = Post::find($id);
+
+        log::info("Return post show view");
+        return view("post.show", compact("post"));
     }
 
     /**
