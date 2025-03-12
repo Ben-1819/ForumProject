@@ -14,7 +14,4 @@
             </div>
         </div>
     </div>
-    <div>
-        <a href="{{route("profile.show")}}">Show Profile</a>
-    </div>
 </x-app-layout>
