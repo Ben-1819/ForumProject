@@ -7,14 +7,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 place-items-center">
         @foreach($friends_posts as $post)
         @php
-            foreach($all_friends as $friend){
-                if($friend->user1_id === request()->user()->id){
-                    $user = User::find($friend->user2_id);
-                }
-                else{
-                    $user = User::find($friend->user1_id);
-                }
-            }
+            $user = User::find($post->user_id);
         @endphp
         <div class="bg-white shadow-lg rounded-lg overflow-hidden border-2 border-solid border-red-500">
             <div class="p-4">
