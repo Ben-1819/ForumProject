@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FriendController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -29,5 +30,12 @@ Route::name("user.")->prefix("/user")->controller(UserController::class)->group(
     Route::get("/{id}", "show")->name("show");
 });
 
-
+Route::name("friend.")->prefix("/friend")->controller(FriendController::class)->group(function(){
+    Route::get("/index", "index")->name("index");
+    Route::get("/favourite", "favourite")->name("favourite");
+    Route::post("/request/{id}", "sendRequest")->name("request");
+    Route::get("/requests", "requests")->name("requests");
+    Route::patch("/accept/{id}", "acceptRequest")->name("accept");
+    Route::patch("/reject/{id}", "rejectRequest")->name("reject");
+});
 require __DIR__.'/auth.php';

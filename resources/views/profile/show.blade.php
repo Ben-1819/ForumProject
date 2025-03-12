@@ -9,6 +9,9 @@
         <h2 class="font-semibold text-xl text-black leading-tight">
             {{ __($user->username)}}
         </h2>
+        @if(session("message"))
+        <h3 class="font semibold">{{session("message")}}</h3>
+        @endif
     </x-slot>
 
     <div class="py-12">
@@ -26,6 +29,10 @@
                     <br>
                     <label>Bio:</label>
                     <textarea readonly>{{$user->bio}}</textarea>
+                    <form action="{{route("friend.request", $user->id)}}" method="post">
+                        @csrf
+                        <button class="rounded-md border-2 border-solid border-red-500">Send Friend Request</button>
+                    </form>
                 </div>
             </div>
         </div>
