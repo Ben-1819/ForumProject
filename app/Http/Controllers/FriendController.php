@@ -13,7 +13,13 @@ class FriendController extends Controller
      */
     public function index()
     {
-        //
+        log::info("Get all records from the friends table where user1_id is the same as the current user and the request is accepted");
+        $all_friends = Friend::where("user1_id", request()->user()->id)->orWhere("user2_id", request()->user()->id)
+            ->where("status", "accepted")
+            ->get();
+
+        log::info("Return the friend index view");
+        return view("friend.index", compact("all_friends"));
     }
 
     public function requests(){
