@@ -60,6 +60,24 @@ class FriendController extends Controller
 
         return back()->with("Message", "Friend Request Rejected");
     }
+
+    public function addFavourite($id){
+        log::info("Updating the selected record from the friends table to have favourite as true");
+        $update_friend = Friend::where("id", $id)->update([
+            "favourite" => true,
+        ]);
+
+        return redirect()->back()->with("Message", "Friend Set To Favourite");
+    }
+
+    public function removeFavourite($id){
+        log::info("Updating the selected record from the friends table to have favourite as false");
+        $update_friend = Friend::where("id", $id)->update([
+            "favourite" => false,
+        ]);
+
+        return redirect()->back()->with("Message", "Friend is not Favourite Anymore");
+    }
     /**
      * Display the specified resource.
      */

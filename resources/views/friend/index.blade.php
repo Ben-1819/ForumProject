@@ -22,11 +22,19 @@
                         <h2 class="font-semibold text-gray-800">{{$user->username}}</h2>
                     </div>
                 </a>
-                <form action="{{route("friend.accept", $friend->id)}}" method="post">
+                @if($friend->favourite == false)
+                <form action="{{route("friend.addFavourite", $friend->id)}}" method="post">
                     @csrf
                     @method("patch")
                     <button class="rounded-md border-2 border-solid border-red-500">Favourite Friend</button>
                 </form>
+                @else
+                <form action="{{route("friend.removeFavourite", $friend->id)}}" method="post">
+                    @csrf
+                    @method("patch")
+                    <button class="rounded-md border-2 border-solid border-red-500">Remove Favourite</button>
+                </form>
+                @endif
                 <form action="{{route("friend.reject", $friend->id)}}" method="post">
                     @csrf
                     @method("patch")
