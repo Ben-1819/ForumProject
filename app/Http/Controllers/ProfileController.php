@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use App\Http\Requests\BioUpdateRequest;
+use App\Http\Requests\UpdateProfilePictureRequest;
+use File;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +62,28 @@ class ProfileController extends Controller
         log::info("New Bio: {bio}", ["bio" => $request->bio]);
 
         log::info("Returning to profile.show view");
+        return redirect()->route("profile.show");
+    }
+
+    public function editPicture(Request $request){
+        log::info("Show the profile picture update view");
+        return view("profile.picture-update", [
+            "user" => $request->user(),
+        ]);
+    }
+
+    public function updatePicture(UpdateProfilePictureRequest $request){
+        log::info("Validate that the users new profile picture is a file");
+        $request->validated();
+        $avatarName = time(). '.' . $request->avatar->getClientOriginalExtension();
+        log::info("Users new avatar: {avatarName}", ["avatarName" => $avatarName]);
+        $request->avatar->move(public_path("avatars"), $avatarName);
+        $update_avatar = User::where("id", $request->user_id)->update([
+            "avatar" => $avatarName,
+        ]);
+        log::info("Deleting users old profile picture");
+        File::delete(public_path("avatars/". request()->user()->avatar));
+
         return redirect()->route("profile.show");
     }
 

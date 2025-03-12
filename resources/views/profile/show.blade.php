@@ -26,6 +26,10 @@
                     <a href="{{route("profile.editBio")}}" class="border-2 border-solid border-red-500">
                         Update your bio
                     </a>
+                    <br>
+                    <a href="{{route("profile.editPicture")}}" class="border-2 border-solid border-red-500">
+                        Update your picture
+                    </a>
                 </div>
                 <form action="{{route("profile.edit")}}" method="get">
                     @csrf

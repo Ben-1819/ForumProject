@@ -15,6 +15,8 @@ Route::middleware('auth')->prefix("/profile")->name("profile.")->controller(Prof
     Route::get('', "edit")->name('edit');
     Route::get("/show", "show")->name("show");
     Route::get("/bio", "editBio")->name("editBio");
+    Route::get("/picture", "editPicture")->name("editPicture");
+    Route::patch("/picture/delete", "updatePicture")->name("updatePicture");
     Route::patch("/bio/{id}", "updateBio")->name("updateBio");
     Route::patch('', "update")->name('update');
     Route::delete('', "destroy")->name('destroy');
