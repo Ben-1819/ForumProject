@@ -35,9 +35,9 @@
                     <button class="rounded-md border-2 border-solid border-red-500">Remove Favourite</button>
                 </form>
                 @endif
-                <form action="{{route("friend.reject", $friend->id)}}" method="post">
+                <form action="{{route("friend.remove", $friend->id)}}" method="post">
                     @csrf
-                    @method("patch")
+                    @method("delete")
                     <button class="rounded-md border-2 border-solid border-red-500">Remove Friend</button>
                 </form>
             </div>

@@ -39,5 +39,6 @@ Route::name("friend.")->prefix("/friend")->controller(FriendController::class)->
     Route::get("/requests", "requests")->name("requests");
     Route::patch("/accept/{id}", "acceptRequest")->name("accept");
     Route::patch("/reject/{id}", "rejectRequest")->name("reject");
+    Route::delete("/remove/{id}", "removeFriend")->name("remove");
 });
 require __DIR__.'/auth.php';

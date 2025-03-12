@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 class FriendController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show all of the users friends.
      */
     public function index()
     {
@@ -22,6 +22,9 @@ class FriendController extends Controller
         return view("friend.index", compact("all_friends"));
     }
 
+    /**
+     * View all incoming friend requests
+     */
     public function requests(){
         log::info("Get all records from the friend table where user2_id is the same as the current user and the request is pending");
         $all_requests = Friend::where("user2_id", request()->user()->id)->where("status", "pending")->get();
@@ -29,6 +32,10 @@ class FriendController extends Controller
         log::info("Return the friend requests view");
         return view("friend.requests", compact("all_requests"));
     }
+
+    /**
+     * Send a friend request to another user
+     */
     public function sendRequest($id){
         log::info("Creating friend request");
         $friend = new Friend([
@@ -41,6 +48,9 @@ class FriendController extends Controller
         return back()->with("Message", "Friend Request Sent");
     }
 
+    /**
+     * Accept an incoming friend request
+     */
     public function acceptRequest($id){
         log::info("Change the status of the friend request to accepted");
         $update_friend = Friend::where("id", $id)->update([
@@ -51,6 +61,9 @@ class FriendController extends Controller
         return back()->with("Message", "Friend Request Accepted");
     }
 
+    /**
+     * Reject an incoming friend request
+     */
     public function rejectRequest($id){
         log::info("Change the status of the friend request to rejected");
         $update_friend = Friend::where("id", $id)->update([
@@ -61,6 +74,9 @@ class FriendController extends Controller
         return back()->with("Message", "Friend Request Rejected");
     }
 
+    /**
+     * Add a friend to favourites
+     */
     public function addFavourite($id){
         log::info("Updating the selected record from the friends table to have favourite as true");
         $update_friend = Friend::where("id", $id)->update([
@@ -70,6 +86,9 @@ class FriendController extends Controller
         return redirect()->back()->with("Message", "Friend Set To Favourite");
     }
 
+    /**
+     * Remove a friend from favourites
+     */
     public function removeFavourite($id){
         log::info("Updating the selected record from the friends table to have favourite as false");
         $update_friend = Friend::where("id", $id)->update([
@@ -79,6 +98,9 @@ class FriendController extends Controller
         return redirect()->back()->with("Message", "Friend is not Favourite Anymore");
     }
 
+    /**
+     * Show all favourited friends
+     */
     public function favourites(){
         log::info("Returning all records from the friends table where either user_ids match the current users_id and favourite is true");
         $all_favourites = Friend::where("user1_id", request()->user()->id)->orWhere("user2_id", request()->user()->id)
@@ -88,35 +110,15 @@ class FriendController extends Controller
         log::info("Returning to the favourites view");
         return view("friend.favourite", compact("all_favourites"));
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show(Friend $friend)
-    {
-        //
-    }
 
     /**
-     * Show the form for editing the specified resource.
+     * Remove friends
      */
-    public function edit(Friend $friend)
-    {
-        //
-    }
+    public function removeFriend($id){
+        log::info("Delete record from the friends table where the id matches");
+        Friend::where("id", $id)->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Friend $friend)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Friend $friend)
-    {
-        //
+        log::info("Friend removed");
+        return redirect()->back()->with("Friend Removed");
     }
 }
