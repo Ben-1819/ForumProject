@@ -24,29 +24,29 @@
         </div>
 
         <!-- Username -->
-        <div class="mt-4">
-            <x-input-label for="username" :value="__("Username")" />
-            <input id="username" class="block mt-1 w-full" type="text" name="username" :value="old("username")" required autocomplete="username" />
+        <div class="relative mt-5">
+            <input id="username" class="w-full h-10 px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer" type="text" name="username" :value="old("username")" required autocomplete="username"/>
+            <label for="username" class="text-sm absolute top-1/2 -translate-y-1/2 left-2 peer-focus:top-0 bg-white z-20 transition-all duration-300">Username</label>
             <x-input-error :messages="$errors->get("email")" class="mt-2" />
         </div>
 
         <!-- Bio -->
-        <div class="mt-4">
-            <x-input-label for="bio" :value="__("Bio")" />
-            <textarea id="bio" class="block mt-1 w-full" type="text" name="bio" :value="old("bio")" required autocomplete="bio"></textarea>
+        <div class="relative mt-5">
+            <textarea id="bio" class="w-full px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer" type="text" name="bio" :value="old("bio")" required autocomplete="bio"></textarea>
+            <label for="bio" class="text-sm absolute top-1/2 -translate-y-1/2 left-2 peer-focus:top-0 bg-white z-20 transition-all duration-300">Bio</label>
             <x-input-error :messages="$errors->get("bio")" class="mt-2" />
         </div>
 
         <!-- Public Account -->
         <div class="mt-4">
             <x-input-label for="public">Private account:</x-input-label>
-            <input type="checkbox" id="public" name="public" :value="old("public")">
+            <input type="checkbox" id="public" name="public" class="rounded-md accent-red-900 border-2 border-solid border-red-300 focus:ring-red-500":value="old("public")">
         </div>
 
         <!-- Profile Picture -->
         <div class="mt-4">
             <x-input-label for="avatar">Profile Picture:</x-input-label>
-            <input type="file" id="avatar" name="avatar">
+            <input type="file" id="avatar" name="avatar" class="px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer">
         </div>
         <!-- Password -->
         <div class="mt-4">
