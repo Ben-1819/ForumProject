@@ -45,6 +45,7 @@ Route::name("friend.")->prefix("/friend")->controller(FriendController::class)->
 
 Route::name("post.")->prefix("/post")->controller(PostController::class)->group(function(){
     Route::get("/index", "index")->name("index");
+    Route::get("/friends", "friendPosts")->name("friendsPosts");
     Route::get("/create", "create")->name("create");
     Route::post("", "store")->name("store");
     Route::get("/show/{id}", "show")->name("show");

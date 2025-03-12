@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Friend;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,22 @@ class PostController extends Controller
         $all_posts = Post::all();
 
         return view("post.index", compact("all_posts"));
+    }
+
+    public function friendPosts(){
+        $all_friends = Friend::where("user1_id", request()->user()->id)->orWhere("user2_id", request()->user()->id)
+            ->where("status", "accepted")
+            ->get();
+
+        $friends_posts = collect();
+        foreach($all_friends as $friend){
+            $friend_posts = Post::whereIn('user_id', [$friend->user1_id, $friend->user2_id])
+                ->where("user_id", "!=", request()->user()->id)
+                ->get();
+
+            $friends_posts = $friends_posts->merge($friend_posts);
+        }
+        return view("post.friend-index", compact("friends_posts", "all_friends"));
     }
 
     /**
