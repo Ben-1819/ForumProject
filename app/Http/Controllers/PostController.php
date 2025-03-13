@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Friend;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
@@ -80,17 +81,37 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        log::info("Find the record in the posts title with an id matching the one passed");
+        $post = Post::find($id);
+
+        log::info("Return post.edit view for post with id: ".$post->id);
+        return view("post.edit", compact("post"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        log::info("Validate the users input");
+        $newPost = $request->validated();
+
+        log::info("Get the user who created the post");
+        $newPost["user_id"] = $request->user_id;
+
+        log::info("Get the amount of likes the post has");
+        $newPost["likes"] = $request->likes;
+
+        log::info("Get the date the post was created");
+        $newPost["created_at"] = $request->created_at;
+
+        log::info("Update the post");
+        $update_post = Post::where("id", $request->post_id)->update($newPost);
+
+        log::info("Return to post show view");
+        return redirect()->route("post.show", ["id" => $request->post_id]);
     }
 
     /**

@@ -48,7 +48,9 @@ Route::name("post.")->prefix("/post")->controller(PostController::class)->group(
     Route::get("/friends", "friendPosts")->name("friendsPosts");
     Route::get("/create", "create")->name("create");
     Route::post("", "store")->name("store");
-    Route::get("/show/{id}", "show")->name("show");
+    Route::get("/{id}/show", "show")->name("show");
+    Route::get("/{id}/edit", "edit")->name("edit");
+    Route::put("/{id}", "update")->name("update");
 });
 
 require __DIR__.'/auth.php';
