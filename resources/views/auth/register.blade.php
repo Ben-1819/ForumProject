@@ -39,7 +39,7 @@
 
         <!-- Public Account -->
         <div class="mt-4">
-            <x-input-label for="public">Private account:</x-input-label>
+            <x-input-label for="public">Public account:</x-input-label>
             <input type="checkbox" id="public" name="public" class="rounded-md accent-red-900 border-2 border-solid border-red-300 focus:ring-red-500":value="old("public")">
         </div>
 
