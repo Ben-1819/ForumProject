@@ -59,6 +59,13 @@
                                     Edit Post
                                 </button>
                             </a>
+                            <form action="{{route("post.destroy", $post->id)}}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button class="rounded-md border-2 border-solid border-red-500">
+                                    Delete Post
+                                </button>
+                            </form>
                         </div>
                     </div>
                     @endforeach
