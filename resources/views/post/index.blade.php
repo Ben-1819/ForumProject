@@ -1,5 +1,6 @@
 @php
     use App\Models\User;
+    use App\Models\Friend;
 @endphp
 <x-app-layout>
     @if(count($all_posts) > 0)
@@ -7,7 +8,31 @@
         @foreach($all_posts as $post)
         @php
             $user = User::find($post->user_id);
+            $users_friends = Friend::where("user1_id", $user->id)->orWhere("user2_id", $user->id)
+                ->where("status", "accepted")
+                ->get();
+            if(count($users_friends) > 0){
+                foreach($users_friends as $friend){
+                    if(request()->user()->id == $friend->user1_id && $friend->status == "accepted"){
+                        $friend = Friend::find($friend->id);
+                        $friends = true;
+                        break;
+                    }
+                    elseif(request()->user()->id == $friend->user2_id && $friend->status == "accepted"){
+                        $friend = Friend::find($friend->id);
+                        $friends = true;
+                        break;
+                    }
+                    else{
+                        $friends = false;
+                    }
+                }
+            }
+            else{
+                $friends = false;
+            }
         @endphp
+        @if($user->public == true || $friends == true)
         <div class="bg-white shadow-lg rounded-lg overflow-hidden border-2 border-solid border-red-500">
             <div class="p-4">
                 <a href="{{route("user.show", $user->id)}}">
@@ -22,6 +47,9 @@
                 </a>
             </div>
         </div>
+        @else
+        @continue
+        @endif
         @endforeach
     </div>
     @else
