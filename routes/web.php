@@ -64,6 +64,7 @@ Route::name("like.")->prefix("/like")->controller(LikeController::class)->group(
 
 Route::name("save.")->prefix("/save")->controller(SaveController::class)->group(function(){
     Route::post("/{id}", "savePost")->name("post");
+    Route::delete("/{id}", "unsavePost")->name("remove");
 });
 
 require __DIR__.'/auth.php';

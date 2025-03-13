@@ -95,7 +95,13 @@
                     </button>
                 </form>
                 @else
-                <p>Already Saved</p>
+                <form action="{{route("save.remove", $post->id)}}" method="post">
+                    @csrf
+                    @method("delete")
+                    <button class="rounded-md border-2 border-solid border-red-500">
+                        Unsave Post
+                    </button>
+                </form>
                 @endif
             </div>
         </div>

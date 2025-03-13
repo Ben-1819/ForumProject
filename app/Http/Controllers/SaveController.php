@@ -21,4 +21,13 @@ class SaveController extends Controller
         log::info("Post saved");
         return redirect()->back();
     }
+
+    public function unsavePost($id){
+        log::info("Delete the record that contains the saved post for the current user in the saves table");
+
+        Save::where("post_id", $id)->where("user_id", request()->user()->id)->delete();
+
+        log::info("Record deleted from the saves table");
+        return redirect()->back();
+    }
 }
