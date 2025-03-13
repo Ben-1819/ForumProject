@@ -24,7 +24,7 @@
                 </form>
                 <form action="{{route("friend.reject", $request->id)}}" method="post">
                     @csrf
-                    @method("patch")
+                    @method("delete")
                     <button class="rounded-md border-2 border-solid border-red-500">Reject Request</button>
                 </form>
             </div>

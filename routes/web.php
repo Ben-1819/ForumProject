@@ -41,7 +41,7 @@ Route::name("friend.")->prefix("/friend")->controller(FriendController::class)->
     Route::post("/request/{id}", "sendRequest")->name("request");
     Route::get("/requests", "requests")->name("requests");
     Route::patch("/accept/{id}", "acceptRequest")->name("accept");
-    Route::patch("/reject/{id}", "rejectRequest")->name("reject");
+    Route::delete("/reject/{id}", "rejectRequest")->name("reject");
     Route::delete("/remove/{id}", "removeFriend")->name("remove");
 });
 

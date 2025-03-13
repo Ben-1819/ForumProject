@@ -82,10 +82,8 @@ class FriendController extends Controller
      * Reject an incoming friend request
      */
     public function rejectRequest($id){
-        log::info("Change the status of the friend request to rejected");
-        $update_friend = Friend::where("id", $id)->update([
-            "status" => "rejected",
-        ]);
+        log::info("Delete the incoming friend request");
+        Friend::where("id", $id)->delete();
         log::info("Friend request rejected");
 
         return back()->with("Message", "Friend Request Rejected");
