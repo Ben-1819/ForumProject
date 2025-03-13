@@ -34,12 +34,6 @@
                 </svg>
                 <span>{{$post->likes}}</span>
             </div>
-            <form action="{{route("post.edit", $post->id)}}" method="get">
-                @csrf
-                <button class="rounded-md border-2 border-solid border-red-500">
-                    Edit Post
-                </button>
-            </form>
         </div>
     </div>
 </x-app-layout>
