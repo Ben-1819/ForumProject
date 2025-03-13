@@ -30,4 +30,13 @@ class SaveController extends Controller
         log::info("Record deleted from the saves table");
         return redirect()->back();
     }
+
+    public function yourSaves(){
+        log::info("Get all records from the saves table where the user id matches the current users");
+
+        $users_saves = Save::where("user_id", request()->user()->id)->get();
+
+        log::info("Return save.user view");
+        return view("save.user", compact("users_saves"));
+    }
 }
