@@ -26,6 +26,31 @@
     else{
         $friends = false;
     }
+
+    $pending_requests = Friend::where("user1_id", $user->id)->orWhere("user2_id", $user->id)
+        ->where("status", "pending")
+        ->get();
+
+    if(count($pending_requests) > 0){
+        foreach($pending_requests as $pending){
+            if(request()->user()->id == $pending->user1_id && $pending->status == "pending"){
+                $pending = Friend::find($pending->id);
+                $pendingRequest = true;
+                break;
+            }
+            elseif(request()->user()->id == $pending->user2_id && $pending->status == "pending"){
+                $pending = Friend::find($pending->id);
+                $pendingRequest = true;
+                break;
+            }
+            else{
+                $pendingRequest = false;
+            }
+        }
+    }
+    else{
+        $pendingRequest = false;
+    }
 ?>
 
 <x-app-layout>
@@ -61,17 +86,28 @@
                             @method("delete")
                             <button class="rounded-md border-2 border-solid border-red-500">Remove Friend</button>
                         </form>
+
                         @elseif($friends == false && request()->user()->id != $user->id)
                         <form action="{{route("friend.request", $user->id)}}" method="post">
                             @csrf
                             <button class="rounded-md border-2 border-solid border-red-500">Send Friend Request</button>
+                        </form>
+
                         @endif
                     @else
                     <p>This account is not public</p>
-                    <form action="{{route("friend.request", $user->id)}}" method="post">
-                        @csrf
-                        <button class="rounded-md border-2 border-solid border-red-500">Send Friend Request</button>
-                    </form>
+                        @if($friends == false && $pendingRequest == true)
+                            <form action="{{route("friend.remove", $pending->id)}}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button class="rounded-md border-2 border-solid border-red-500">Friend Request Sent</button>
+                            </form>
+                        @else
+                            <form action="{{route("friend.request", $user->id)}}" method="post">
+                                @csrf
+                                <button class="rounded-md border-2 border-solid border-red-500">Send Friend Request</button>
+                            </form>
+                        @endif
                     @endif
                 </div>
             </div>
