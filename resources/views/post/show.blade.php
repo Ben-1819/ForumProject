@@ -1,6 +1,22 @@
 @php
     use App\Models\User;
+    use App\Models\Like;
     $user = User::find($post->user_id);
+    $users_likes = Like::where("user_id", request()->user()->id)->get();
+    if(count($users_likes) > 0){
+        foreach($users_likes as $like){
+            if($like->post_id == $post->id){
+                $liked = true;
+                break;
+            }
+            else{
+                $liked = false;
+            }
+        }
+    }
+    else{
+        $liked = false;
+    }
 @endphp
 <x-app-layout>
     <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -29,10 +45,29 @@
 
             <!-- Likes -->
             <div class="flex items-center space-x-2">
-                <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 3.498c.3-1.057 1.804-1.057 2.105 0l1.173 3.727c.196.634.757 1.035 1.411 1.035h3.897c1.076 0 1.52 1.372.728 2.054l-3.15 2.43c-.415.318-.588.87-.459 1.41l1.07 3.89c.283 1.035-.876 1.9-1.754 1.343l-3.441-2.558c-.532-.391-1.221-.347-1.67.141l-3.11 3.647c-.81.957-2.394.363-2.396-1.023v-3.723c0-.543-.217-1.063-.608-1.454l-3.125-3.267c-1.019-.868-.499-2.474.918-2.474h3.845c.736 0 1.4-.471 1.643-1.163l1.18-3.637z"/>
-                </svg>
-                <span>{{$post->likes}}</span>
+                @if($liked = false)
+                <form action="{{route("like.add", $post->id)}}" method="post">
+                    @csrf
+                    @method("put")
+                    <button>
+                        <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" onclick="this.form.submit()">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 3.498c.3-1.057 1.804-1.057 2.105 0l1.173 3.727c.196.634.757 1.035 1.411 1.035h3.897c1.076 0 1.52 1.372.728 2.054l-3.15 2.43c-.415.318-.588.87-.459 1.41l1.07 3.89c.283 1.035-.876 1.9-1.754 1.343l-3.441-2.558c-.532-.391-1.221-.347-1.67.141l-3.11 3.647c-.81.957-2.394.363-2.396-1.023v-3.723c0-.543-.217-1.063-.608-1.454l-3.125-3.267c-1.019-.868-.499-2.474.918-2.474h3.845c.736 0 1.4-.471 1.643-1.163l1.18-3.637z"/>
+                        </svg>
+                    </button>
+                    <span>{{$post->likes}}</span>
+                </form>
+                @else($liked = true)
+                <form action="{{route("like.add", $post->id)}}" method="post">
+                    @csrf
+                    @method("put")
+                    <button>
+                        <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" stroke="currentColor" onclick="this.form.submit()">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 3.498c.3-1.057 1.804-1.057 2.105 0l1.173 3.727c.196.634.757 1.035 1.411 1.035h3.897c1.076 0 1.52 1.372.728 2.054l-3.15 2.43c-.415.318-.588.87-.459 1.41l1.07 3.89c.283 1.035-.876 1.9-1.754 1.343l-3.441-2.558c-.532-.391-1.221-.347-1.67.141l-3.11 3.647c-.81.957-2.394.363-2.396-1.023v-3.723c0-.543-.217-1.063-.608-1.454l-3.125-3.267c-1.019-.868-.499-2.474.918-2.474h3.845c.736 0 1.4-.471 1.643-1.163l1.18-3.637z"/>
+                        </svg>
+                    </button>
+                    <span>{{$post->likes}}</span>
+                </form>
+                @endif
             </div>
         </div>
     </div>
