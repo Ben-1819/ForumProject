@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Friend;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -38,14 +39,30 @@ class FriendController extends Controller
      */
     public function sendRequest($id){
         log::info("Creating friend request");
-        $friend = new Friend([
-            "user1_id" => request()->user()->id,
-            "user2_id" => $id
-        ]);
-        $friend->save();
 
-        log::info("Friend request sent");
-        return back()->with("Message", "Friend Request Sent");
+        log::info("Find the record in the users table belonging to the user recieving the request");
+        $user = User::find($id);
+
+        log::info("If the users account is public accepct the request, if it is not then leave it as pending");
+        if($user->public == true){
+            $friend = new Friend([
+                "user1_id" => request()->user()->id,
+                "user2_id" => $id,
+                "status" => "accepted",
+            ]);
+            $friend->save();
+            log::info("Friend Added");
+            return back()->with("Message", "Friend Request Sent");
+        }
+        else{
+            $friend = new Friend([
+                "user1_id" => request()->user()->id,
+                "user2_id" => $id
+            ]);
+            $friend->save();
+            log::info("Friend request sent");
+            return back()->with("Message", "Friend Request Sent");
+        }
     }
 
     /**
