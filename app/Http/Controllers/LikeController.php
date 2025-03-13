@@ -41,4 +41,31 @@ class LikeController extends Controller
         log::info("Post Likes:". $total);
         return redirect()->back();
     }
+
+    public function removeLike($id){
+        log::info("Delete the record in the likes table containing the users like");
+
+        Like::where("post_id", $id)->where("user_id", request()->user()->id)->delete();
+
+        log::info("Like deleted");
+
+        $post = Post::find($id);
+        $total = 0;
+        log::info("Loop through the likes table and get the total amount of likes on the post");
+        $likes = Like::where("post_id", $id)->get();
+        $total = count($likes);
+        log::info("total likes: {likes}", ["likes" => $total]);
+
+        $newPost = [
+            "user_id" => $post->id,
+            "title" => $post->title,
+            "description" => $post->description,
+            "likes" => $total,
+        ];
+
+        $updatePost = Post::where("id", $id)->update($newPost);
+
+        log::info("Post Likes:". $total);
+        return redirect()->back();
+    }
 }
