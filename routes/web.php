@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\SaveController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FriendController;
@@ -59,6 +60,10 @@ Route::name("like.")->prefix("/like")->controller(LikeController::class)->group(
     Route::put("/{id}", "likePost")->name("add");
     Route::delete("/{id}", "removeLike")->name("remove");
     Route::get("/user", "yourLikes")->name("yours");
+});
+
+Route::name("save.")->prefix("/save")->controller(SaveController::class)->group(function(){
+    Route::post("/{id}", "savePost")->name("post");
 });
 
 require __DIR__.'/auth.php';

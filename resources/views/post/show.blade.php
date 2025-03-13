@@ -1,6 +1,7 @@
 @php
     use App\Models\User;
     use App\Models\Like;
+    use App\Models\Save;
     $user = User::find($post->user_id);
     $users_likes = Like::where("user_id", request()->user()->id)->get();
     if(count($users_likes) > 0){
@@ -16,6 +17,22 @@
     }
     else{
         $liked = false;
+    }
+
+    $users_saves = Save::where("user_id", request()->user()->id)->get();
+    if(count($users_saves) > 0){
+        foreach($users_saves as $save){
+            if($save->post_id == $post->id){
+                $saved = true;
+                break;
+            }
+            else{
+                $saved = false;
+            }
+        }
+    }
+    else{
+        $saved = false;
     }
 @endphp
 <x-app-layout>
@@ -56,7 +73,7 @@
                     </button>
                     <span>{{$post->likes}}</span>
                 </form>
-                @else($liked == true)
+                @else
                 <form action="{{route("like.remove", $post->id)}}" method="post">
                     @csrf
                     @method("delete")
@@ -67,6 +84,18 @@
                     </button>
                     <span>{{$post->likes}}</span>
                 </form>
+                @endif
+            </div>
+            <div>
+                @if($saved == false)
+                <form action="{{route("save.post", $post->id)}}" method="post">
+                    @csrf
+                    <button class="rounded-md border-2 border-solid border-red-500">
+                        Save Post
+                    </button>
+                </form>
+                @else
+                <p>Already Saved</p>
                 @endif
             </div>
         </div>
