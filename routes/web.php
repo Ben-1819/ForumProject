@@ -58,6 +58,7 @@ Route::name("post.")->prefix("/post")->controller(PostController::class)->group(
 Route::name("like.")->prefix("/like")->controller(LikeController::class)->group(function(){
     Route::put("/{id}", "likePost")->name("add");
     Route::delete("/{id}", "removeLike")->name("remove");
+    Route::get("/user", "yourLikes")->name("yours");
 });
 
 require __DIR__.'/auth.php';

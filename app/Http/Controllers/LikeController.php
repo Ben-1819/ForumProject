@@ -30,7 +30,7 @@ class LikeController extends Controller
         }
         log::info("Post has: {likes}", ["likes" => $total]);
         $newPost = [
-            "user_id" => $post->id,
+            "user_id" => $post->user_id,
             "title" => $post->title,
             "description" => $post->description,
             "likes" => $total,
@@ -57,7 +57,7 @@ class LikeController extends Controller
         log::info("total likes: {likes}", ["likes" => $total]);
 
         $newPost = [
-            "user_id" => $post->id,
+            "user_id" => $post->user_id,
             "title" => $post->title,
             "description" => $post->description,
             "likes" => $total,
@@ -67,5 +67,13 @@ class LikeController extends Controller
 
         log::info("Post Likes:". $total);
         return redirect()->back();
+    }
+
+    public function yourLikes(){
+        log::info("Get all records from the likes table where the user_id is the same as the current users");
+        $users_likes = Like::where("user_id", request()->user()->id)->get();
+
+        log::info("Return view users likes");
+        return view("like.user", compact("users_likes"));
     }
 }
