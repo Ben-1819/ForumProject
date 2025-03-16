@@ -41,7 +41,7 @@
                 Create A Post
             </button>
         </a>
-        <a href="{{route("chats")}}">
+        <a href="{{route("user.chats")}}">
             <button class="rounded-md border-2 border-solid border-red-500">
                 Message Other Users
             </button>
