@@ -21,7 +21,7 @@ class MessageSentEvent implements ShouldBroadcastNow
     public $message;
     public function __construct($message)
     {
-        $this->message = $message->load("sender:id,name", "receiver:id,name");
+        $this->message = $message->load("sender:id,username", "receiver:id,username");
     }
 
     /**
