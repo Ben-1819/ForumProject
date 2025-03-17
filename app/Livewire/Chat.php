@@ -2,11 +2,12 @@
 
 namespace App\Livewire;
 
-use App\Events\UnreadMessage;
 use App\Models\User;
 use App\Models\Message;
 
 use App\Events\MessageSentEvent;
+use App\Events\UnreadMessage;
+use App\Events\UserTyping;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -36,6 +37,8 @@ class Chat extends Component
     }
     public function render()
     {
+        $this->markMessagesAsRead();
+
         return view('livewire.chat');
     }
 
@@ -106,5 +109,9 @@ class Chat extends Component
             ->update(["is_read" => true]);
 
         broadcast(new UnreadMessage($this->senderId, $this->receiverId, 0))->toOthers();
+    }
+
+    public function userTyping() {
+        broadcast(new UserTyping($this->senderId, $this->receiverId))->toOthers();
     }
 }

@@ -91,7 +91,7 @@
                             </svg>
 
                             {{-- Message Input --}}
-                            <input autocomplete="off" id="message-input" wire:model="message"
+                            <input autocomplete="off" id="message-input" wire:model="message" wire:keydown="userTyping"
                                 class="grow shrink basis-0 text-black text-xs font-medium rounded leading-4 focus:outline-none"
                                 placeholder="Type here...">
                         </div>
@@ -119,3 +119,23 @@
         </div>
     </div>
 </div>
+
+@script
+    <script type="module">
+        let typingTimeout;
+        window.Echo.private(`chat-channel.{{ $senderId }}`)
+            .listen("UserTyping", (event) => {
+                const messageInputField = document.getElementById("message-input");
+                if(messageInputField){
+                    messageInputField.placeholder = "Typing";
+                }
+
+                clearTimeout(typingTimeout);
+                typingTimeout = setTimeout(() => {
+                    if(messageInputField){
+                        messageInputField.placeholder = "Type here";
+                    }
+                }, 2000);
+            })
+    </script>
+@endscript
