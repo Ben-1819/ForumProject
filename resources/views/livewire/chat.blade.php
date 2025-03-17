@@ -123,11 +123,11 @@
 @script
     <script type="module">
         let typingTimeout;
+        let messageInputField = document.getElementById("message-input");
         const chatContainer = document.getElementById("chat-container");
 
         window.Echo.private(`chat-channel.{{ $senderId }}`)
             .listen("UserTyping", (event) => {
-                const messageInputField = document.getElementById("message-input");
                 if(messageInputField){
                     messageInputField.placeholder = "Typing";
                 }
