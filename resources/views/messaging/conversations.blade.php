@@ -50,3 +50,15 @@
         </div>
     </div>
 </x-app-layout>
+
+<script type="module">
+    window.Echo.private("unread-channel.{{ Auth::user()->id }}")
+        .listen("UnreadMessage", (event) => {
+            const unreadCountElement = document.getElementById(`unread-count-${event.senderId}`);
+            if (unreadCountElement){
+                event.unreadCount == 0 ? unreadCountElement.classList = '' : unreadCountElement.classList =
+                    'absolute top-0 right-11 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full';
+                unreadCountElement.textContent = event.unreadCount > 0 ? event.unreadCount : '';
+            }
+        });
+</script>
