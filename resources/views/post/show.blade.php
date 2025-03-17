@@ -139,10 +139,22 @@
                         <p class="font-semibold text-gray-800">{{$comment->user->username}}</p>
                     </div>
                 </div>
-
-                <p class="text-lg text-gray-700 mb-6 break-words">
-                    {{$comment->comment}}
-                </p>
+                <div class="flex flex-row">
+                    <p class="text-lg text-gray-700 mb-6 break-words">
+                        {{$comment->comment}}
+                    </p>
+                    @if($comment->user_id === Auth()->user()->id)
+                        <form action="{{route("comment.delete", $comment->id)}}" method="post">
+                            @csrf
+                            @method("delete")
+                            <button id="DeleteComment">
+                                <svg class="w-5 h-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.06 2.93c.39-.39 1.02-.39 1.41 0l5.66 5.66c.39.39.39 1.02 0 1.41l-3.5 3.5c-.39.39-1.02.39-1.41 0l-5.66-5.66c-.39-.39-.39-1.02 0-1.41l3.5-3.5zM3 17.25V21h3.75l10.58-10.58-3.75-3.75L3 17.25z"/>
+                                </svg>
+                            </button>
+                        </form>
+                    @endif
+                </div>
                 <hr>
             @empty
             <h2>No Comments on this post</h2>

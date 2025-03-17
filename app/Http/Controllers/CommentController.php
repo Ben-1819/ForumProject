@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 
 use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -34,5 +35,12 @@ class CommentController extends Controller
 
         log::info("Returning to viewing the post");
         return redirect()->route("post.show", ["id" => $comment->post_id]);
+    }
+
+    public function destroy($id){
+        log::info("Deleting comment with id of: {id}", ["id" => $id]);
+        Comment::find($id)->delete();
+        log::info("Comment Deleted");
+        return redirect()->back();
     }
 }
