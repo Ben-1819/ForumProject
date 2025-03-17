@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\PostController;
@@ -14,6 +15,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::controller(ChatController::class)->group(function(){
+    Route::get("/chats", "chatIndex")->name("chats");
+    Route::get("/chat/{id}", "userChat")->name("chat");
+});
 
 Route::middleware('auth')->prefix("/profile")->name("profile.")->controller(ProfileController::class)->group(function () {
     Route::get('', "edit")->name('edit');
@@ -30,6 +36,7 @@ Route::middleware('auth')->prefix("/profile")->name("profile.")->controller(Prof
 Route::name("user.")->prefix("/user")->controller(UserController::class)->group(function(){
     Route::get("/index", "index")->name("index");
     Route::get("/{id}", "show")->name("show");
+
 });
 
 Route::name("friend.")->prefix("/friend")->controller(FriendController::class)->group(function(){
