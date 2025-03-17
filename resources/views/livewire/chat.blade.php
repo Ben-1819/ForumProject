@@ -150,6 +150,7 @@
                 setTimeout(() => {
                     scrollToBottom();
                 }, 50);
+                messageInputField.value = "";
             });
 
             window.onload = () => {
