@@ -7,6 +7,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -73,6 +74,10 @@ Route::name("save.")->prefix("/save")->controller(SaveController::class)->group(
     Route::post("/{id}", "savePost")->name("post");
     Route::delete("/{id}", "unsavePost")->name("remove");
     Route::get("/user", "yourSaves")->name("yours");
+});
+
+Route::name("comment.")->prefix("/comment")->controller(CommentController::class)->group(function(){
+    Route::post("/{id}", "store")->name("store");
 });
 
 require __DIR__.'/auth.php';

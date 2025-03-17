@@ -104,6 +104,49 @@
                 </form>
                 @endif
             </div>
+            <div>
+                <button id="writeComment" class="rounded-md border-2 border-solid border-red-500">
+                    Add Comment
+                </button>
+                <button id="cancelComment" class="rounded-md border-2 border-solid border-red-500">
+                    Cancel Comment
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div id="commentCreate" class="mt-6">
+            <form action="{{route("comment.store", $post->id)}}" method="post">
+                @csrf
+                <div class="relative">
+                    <input type="hidden" name="post_id" value={{$post->id}}>
+                    <input type="text" name="comment" id="comment" value="{{old("comment")}}" class="w-full px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer" required>
+                    <label for="comment" class="text-sm absolute top-1/2 -translate-y-1/2 left-2 peer-focus:top-0 bg-white z-20 transition-all duration-300">Enter your comment:</label>
+                    @error("comment")
+                        <x-errors>{{ $message }}</x-errors>
+                    @enderror
+                </div>
+                <button class="rounded-md border-2 border-solid border-red-500">Post your comment</button>
+            </form>
+        </div>
+        <div class="flex-items-center space-x-4 mb-6 relative" id="comments">
+            <hr>
+            @forelse($post->comments as $comment)
+                <div class="flex flex-row">
+                    <div>
+                        <img src="/avatars/{{$comment->user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full ">
+                    </div>
+                    <div>
+                        <p class="font-semibold text-gray-800">{{$comment->user->username}}</p>
+                    </div>
+                </div>
+
+                <p class="text-lg text-gray-700 mb-6 break-words">
+                    {{$comment->comment}}
+                </p>
+                <hr>
+            @empty
+            <h2>No Comments on this post</h2>
+            @endforelse
         </div>
     </div>
 </x-app-layout>
