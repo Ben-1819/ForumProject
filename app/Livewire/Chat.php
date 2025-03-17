@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Events\UnreadMessage;
 use App\Models\User;
 use App\Models\Message;
 
@@ -22,6 +23,7 @@ class Chat extends Component
     public $messages = [];
 
     public function mount($userId){
+        $this->dispatch("messages-updated");
         $this->user = $this->getUser($userId);
 
         $this->senderId = Auth::user()->id;
@@ -29,6 +31,8 @@ class Chat extends Component
         $this->receiverId = $userId;
 
         $this->messages = $this->getMessages();
+
+        $this->markMessagesAsRead();
     }
     public function render()
     {
@@ -54,11 +58,15 @@ class Chat extends Component
     }
 
     public function sendMessage(){
-        $sentMessage= $this->saveMessage();
+        $sentMessage = $this->saveMessage()->load("sender:id,username", "receiver:id,username");
 
         $this->messages[] = $sentMessage;
 
         broadcast(new MessageSentEvent($sentMessage));
+
+        $unreadCount = $this->getUnreadMessagesCount();
+
+        broadcast(new UnreadMessage($this->receiverId, $this->senderId, $unreadCount));
 
         $this->message = null;
 
@@ -83,5 +91,20 @@ class Chat extends Component
         $newMessage = Message::find($event["message"]["id"])->load("sender:id,username", "receiver:id,username");
 
         $this->messages[] = $newMessage;
+    }
+
+    public function getUnreadMessagesCount(){
+        return Message::where("receiver_id", $this->receiverId)
+            ->where("is_read", "false")
+            ->count();
+    }
+
+    public function markMessagesAsRead(){
+        Message::where("receiver_id", $this->senderId)
+            ->where("sender_id", $this->receiverId)
+            ->where("is_read", false)
+            ->update(["is_read" => true]);
+
+        broadcast(new UnreadMessage($this->senderId, $this->receiverId, 0))->toOthers();
     }
 }
