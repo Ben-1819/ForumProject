@@ -123,6 +123,8 @@
 @script
     <script type="module">
         let typingTimeout;
+        const chatContainer = document.getElementById("chat-container");
+
         window.Echo.private(`chat-channel.{{ $senderId }}`)
             .listen("UserTyping", (event) => {
                 const messageInputField = document.getElementById("message-input");
@@ -137,5 +139,27 @@
                     }
                 }, 2000);
             })
+
+            .listen("MessageSentEvent", (event) => {
+                const isInputFocused = document.activeElement === messageInputField;
+                const isScrolledToBottom = chatContainer.scrollTop + chatContainer.clientHeight >= chatContainer
+                    .scrollHeight - 10;
+            });
+
+            Livewire.on("messages-updated", () => {
+                setTimeout(() => {
+                    scrollToBottom();
+                }, 50);
+            });
+
+            window.onload = () => {
+                scrollToBottom();
+            };
+
+            function scrollToBottom(){
+                if(chatContainer){
+                    chatContainer.scrollTo(0, chatContainer.scrollHeight);
+                }
+            }
     </script>
 @endscript
