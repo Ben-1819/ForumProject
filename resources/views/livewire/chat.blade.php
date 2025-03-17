@@ -24,61 +24,11 @@
                                             {{ $message->sender->username }} </h5>
                                         <div class="w-max grid">
 
-                                            @if ($message->message)
-                                                <div
-                                                    class="px-3.5 py-2 bg-gray-100 rounded-3xl rounded-tl-none justify-start items-center gap-3 inline-flex">
-                                                    <h5 class="text-gray-900 text-sm font-normal leading-snug">
-                                                        {{ $message->message }}</h5>
-                                                </div>
-                                            @else
-                                                @php
-                                                    $imgType = str_starts_with($message->file_type, 'image/')
-                                                        ? true
-                                                        : false;
-                                                @endphp
-
-                                                <div>
-                                                    <span>
-                                                        @if ($imgType)
-                                                            <a href="{{ asset('chat_files/' . $message->file_path) }}">
-                                                                <img src="{{ asset('chat_files/' . $message->file_path) }}"
-                                                                    alt="file"
-                                                                    class="w-12 h-12 rounded-lg object-cover border border-gray-300 shadow-md" />
-                                                            </a>
-                                                        @else
-                                                            <a class="flex items-center justify-between bg-gray-200 px-3 py-2 rounded"
-                                                                download
-                                                                href="{{ asset('chat_files/' . $message->file_path) }}">
-                                                                <svg class="cursor-pointer"
-                                                                    xmlns="http://www.w3.org/2000/svg" width="22"
-                                                                    height="22" viewBox="0 0 22 22" fill="none">
-                                                                    <g id="Attach 01">
-                                                                        <g id="Vector">
-                                                                            <path
-                                                                                d="M14.9332 7.79175L8.77551 14.323C8.23854 14.8925 7.36794 14.8926 6.83097 14.323C6.294 13.7535 6.294 12.83 6.83097 12.2605L12.9887 5.72925M12.3423 6.41676L13.6387 5.04176C14.7126 3.90267 16.4538 3.90267 17.5277 5.04176C18.6017 6.18085 18.6017 8.02767 17.5277 9.16676L16.2314 10.5418M16.8778 9.85425L10.72 16.3855C9.10912 18.0941 6.49732 18.0941 4.88641 16.3855C3.27549 14.6769 3.27549 11.9066 4.88641 10.198L11.0441 3.66675"
-                                                                                stroke="black" stroke-width="1.6"
-                                                                                stroke-linecap="round"
-                                                                                stroke-linejoin="round" />
-                                                                            <path
-                                                                                d="M14.9332 7.79175L8.77551 14.323C8.23854 14.8925 7.36794 14.8926 6.83097 14.323C6.294 13.7535 6.294 12.83 6.83097 12.2605L12.9887 5.72925M12.3423 6.41676L13.6387 5.04176C14.7126 3.90267 16.4538 3.90267 17.5277 5.04176C18.6017 6.18085 18.6017 8.02767 17.5277 9.16676L16.2314 10.5418M16.8778 9.85425L10.72 16.3855C9.10912 18.0941 6.49732 18.0941 4.88641 16.3855C3.27549 14.6769 3.27549 11.9066 4.88641 10.198L11.0441 3.66675"
-                                                                                stroke="black" stroke-opacity="0.2"
-                                                                                stroke-width="1.6" stroke-linecap="round"
-                                                                                stroke-linejoin="round" />
-                                                                            <path
-                                                                                d="M14.9332 7.79175L8.77551 14.323C8.23854 14.8925 7.36794 14.8926 6.83097 14.323C6.294 13.7535 6.294 12.83 6.83097 12.2605L12.9887 5.72925M12.3423 6.41676L13.6387 5.04176C14.7126 3.90267 16.4538 3.90267 17.5277 5.04176C18.6017 6.18085 18.6017 8.02767 17.5277 9.16676L16.2314 10.5418M16.8778 9.85425L10.72 16.3855C9.10912 18.0941 6.49732 18.0941 4.88641 16.3855C3.27549 14.6769 3.27549 11.9066 4.88641 10.198L11.0441 3.66675"
-                                                                                stroke="black" stroke-opacity="0.2"
-                                                                                stroke-width="1.6" stroke-linecap="round"
-                                                                                stroke-linejoin="round" />
-                                                                        </g>
-                                                                    </g>
-                                                                </svg>
-                                                                <span
-                                                                    class="w-full max-w-64">{{ $message->file_name_original }}</span>
-                                                            </a>
-                                                        @endif
-                                                    </span>
-                                                </div>
-                                            @endif
+                                            <div
+                                                class="px-3.5 py-2 bg-gray-100 rounded-3xl rounded-tl-none justify-start items-center gap-3 inline-flex">
+                                                <h5 class="text-gray-900 text-sm font-normal leading-snug">
+                                                    {{ $message->message }}</h5>
+                                            </div>
 
                                             <div class="justify-end items-center inline-flex mb-2.5">
                                                 <h6 class="text-gray-500 text-xs font-normal leading-4 py-1">
@@ -98,65 +48,23 @@
                                         <h5 class="text-right text-gray-900 text-sm font-semibold leading-snug pb-1">You
                                         </h5>
 
-                                        @if ($message->message)
-                                            <div class="px-3 py-2 bg-indigo-600 rounded-3xl rounded-tr-none">
-                                                <h2 class="text-white text-sm font-normal leading-snug">
-                                                    {{ $message->message }}
-                                                </h2>
-                                            </div>
-                                        @else
-                                            <div>
-                                                @php
-                                                    $imgType = str_starts_with($message->file_type, 'image/')
-                                                        ? true
-                                                        : false;
-                                                @endphp
-                                                <span>
-                                                    @if ($imgType)
-                                                        <a href="{{ asset('chat_files/' . $message->file_path) }}"
-                                                            target="_blank">
-                                                            <img src="{{ asset('chat_files/' . $message->file_path) }}"
-                                                                alt="file"
-                                                                class="w-12 h-12 rounded-lg object-cover border border-gray-300 shadow-md" />
-                                                        </a>
-                                                    @else
-                                                        <a class="flex items-center justify-between bg-indigo-600 px-3 py-2 rounded text-white"
-                                                            download
-                                                            href="{{ asset('chat_files/' . $message->file_path) }}">
-                                                            <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg"
-                                                                width="22" height="22" viewBox="0 0 22 22"
-                                                                fill="none">
-                                                                <g id="Attach 01">
-                                                                    <g id="Vector">
-                                                                        <path
-                                                                            d="M14.9332 7.79175L8.77551 14.323C8.23854 14.8925 7.36794 14.8926 6.83097 14.323C6.294 13.7535 6.294 12.83 6.83097 12.2605L12.9887 5.72925M12.3423 6.41676L13.6387 5.04176C14.7126 3.90267 16.4538 3.90267 17.5277 5.04176C18.6017 6.18085 18.6017 8.02767 17.5277 9.16676L16.2314 10.5418M16.8778 9.85425L10.72 16.3855C9.10912 18.0941 6.49732 18.0941 4.88641 16.3855C3.27549 14.6769 3.27549 11.9066 4.88641 10.198L11.0441 3.66675"
-                                                                            stroke="white" stroke-width="1.6"
-                                                                            stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                        <path
-                                                                            d="M14.9332 7.79175L8.77551 14.323C8.23854 14.8925 7.36794 14.8926 6.83097 14.323C6.294 13.7535 6.294 12.83 6.83097 12.2605L12.9887 5.72925M12.3423 6.41676L13.6387 5.04176C14.7126 3.90267 16.4538 3.90267 17.5277 5.04176C18.6017 6.18085 18.6017 8.02767 17.5277 9.16676L16.2314 10.5418M16.8778 9.85425L10.72 16.3855C9.10912 18.0941 6.49732 18.0941 4.88641 16.3855C3.27549 14.6769 3.27549 11.9066 4.88641 10.198L11.0441 3.66675"
-                                                                            stroke="white" stroke-opacity="0.2"
-                                                                            stroke-width="1.6" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                        <path
-                                                                            d="M14.9332 7.79175L8.77551 14.323C8.23854 14.8925 7.36794 14.8926 6.83097 14.323C6.294 13.7535 6.294 12.83 6.83097 12.2605L12.9887 5.72925M12.3423 6.41676L13.6387 5.04176C14.7126 3.90267 16.4538 3.90267 17.5277 5.04176C18.6017 6.18085 18.6017 8.02767 17.5277 9.16676L16.2314 10.5418M16.8778 9.85425L10.72 16.3855C9.10912 18.0941 6.49732 18.0941 4.88641 16.3855C3.27549 14.6769 3.27549 11.9066 4.88641 10.198L11.0441 3.66675"
-                                                                            stroke="white" stroke-opacity="0.2"
-                                                                            stroke-width="1.6" stroke-linecap="round"
-                                                                            stroke-linejoin="round" />
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-                                                            <span
-                                                                class="w-full max-w-64">{{ $message->file_name_original }}</span>
-                                                        </a>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                        @endif
+                                        <div class="px-3 py-2 bg-indigo-600 rounded-3xl rounded-tr-none">
+                                            <h2 class="text-white text-sm font-normal leading-snug">
+                                                {{ $message->message }}
+                                            </h2>
+                                        </div>
+                                        @php
+                                                if($message->is_read === true){
+                                                    $read = "read";
+                                                }
+                                                else{
+                                                    $read = "not read";
+                                                }
+                                            @endphp
                                         <div class="justify-start items-center inline-flex">
                                             <h3 class="text-gray-500 text-xs font-normal leading-4 py-1">
                                                 <strong>{{ $message->formatted_date }}</strong>
-                                                {{ $message->created_at->format('h:i A') }}
+                                                {{ $message->created_at->format('h:i A') }} {{$read}}
                                             </h3>
                                         </div>
                                     </div>
