@@ -8,8 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="container mx-auto p-8">
-                    <h1 class="text-2xl font-bold mb-4">List of users</h1>
-
+                    <h1 class="text-2xl font-bold mb-4">List of conversations</h1>
                     <div class="overflow-x-auto">
                         <table class="table-auto w-full border-collapse border border-gray-300">
                             <thead>
@@ -20,12 +19,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($chats as $chat)
+                                    @php
+                                        $otherUser = $chat->sender_id == Auth::id() ? $chat->receiver : $chat->sender;
+                                    @endphp
                                     <tr>
                                         <td class="border border-gray-300 px-4 py-2">{{$loop->index + 1}}</td>
-                                        <td class="border border-gray-300 px-4 py-2">{{$user->username}}</td>
+                                        <td class="border border-gray-300 px-4 py-2">{{$otherUser->username}}</td>
                                         <td class="border border-gray-300 px-4 py-2 relative">
-                                            <a navigate href="{{route("chat", $user->id)}}">
+                                            <a navigate href="{{route("chat", $otherUser->id)}}">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                     class="size-6 me-1">
@@ -34,9 +36,9 @@
                                                 </svg>
 
                                                 {{-- Display unread message count --}}
-                                                <span id="unread-count-{{ $user->id }}"
-                                                    class="{{ $user->unread_messages_count > 0 ? 'absolute top-0 right-11 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full' : '' }}">
-                                                    {{ $user->unread_messages_count > 0 ? $user->unread_messages_count : null }}
+                                                <span id="unread-count-{{ $otherUser->id }}"
+                                                    class="{{ $otherUser->unread_messages_count > 0 ? 'absolute top-0 right-11 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded-full' : '' }}">
+                                                    {{ $otherUser->unread_messages_count > 0 ? $otherUser->unread_messages_count : null }}
                                                 </span>
                                             </a>
                                         </td>
