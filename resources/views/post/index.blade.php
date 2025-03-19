@@ -32,7 +32,7 @@
                 $friends = false;
             }
         @endphp
-        @if($user->public == true || $friends == true)
+        @if($user->public == true || $friends == true || Auth::user()->id == $user->id)
         <div class="bg-white shadow-lg rounded-lg overflow-hidden border-2 border-solid border-red-500">
             <div class="p-4">
                 <a href="{{route("user.show", $user->id)}}">
