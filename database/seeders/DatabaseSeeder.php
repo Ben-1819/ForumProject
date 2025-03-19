@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);*/
+        $this->call(RoleSeeder::class);
 
         $user = User::create([
             "first_name" => "Ben",
@@ -33,6 +34,8 @@ class DatabaseSeeder extends Seeder
             "public" => false,
         ]);
 
+        $user->assignRole("superadmin");
+
         $user = User::create([
             "first_name" => "Matthew",
             "last_name" => "Kirk",
@@ -44,5 +47,7 @@ class DatabaseSeeder extends Seeder
             "bio" => "I also hate doing seeders",
             "public" => false,
         ]);
+
+        $this->call(PostSeeder::class);
     }
 }
