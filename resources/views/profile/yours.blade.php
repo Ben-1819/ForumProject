@@ -46,23 +46,32 @@
                                     <p class="font-semibold">{{$user->username}}</p>
                                 </a>
                                 <h3 class="text-xl font-semibold">{{$post->title}}</h3>
-                                <a href="{{route('post.show', $post->id)}}">
-                                    <button class="rounded-md border-2 border-solid border-red-500">
-                                        View Post
-                                    </button>
-                                </a>
-                                <a href="{{route("post.edit", $post->id)}}">
-                                    <button class="rounded-md border-2 border-solid border-red-500">
-                                        Edit Post
-                                    </button>
-                                </a>
-                                <form action="{{route("post.destroy", $post->id)}}" method="post">
-                                    @csrf
-                                    @method("delete")
-                                    <button class="rounded-md border-2 border-solid border-red-500">
-                                        Delete Post
-                                    </button>
-                                </form>
+                                <div class="flex flex-row">
+                                    <a href="{{route('post.show', $post->id)}}">
+                                        <x-my-button>
+                                            View Post
+                                        </x-my-button>
+                                    </a>
+                                    <a href="{{route("post.edit", $post->id)}}">
+                                        <x-my-button>
+                                            Edit Post
+                                        </x-my-button>
+                                    </a>
+                                </div>
+                                <div class="flex flex-row">
+                                    <form action="{{route("post.destroy", $post->id)}}" method="post">
+                                        @csrf
+                                        @method("delete")
+                                        <x-my-button>
+                                            Delete Post
+                                        </x-my-button>
+                                    </form>
+                                    <a href="{{route("post.whoSaved", $post->id)}}">
+                                        <x-my-button>
+                                            View Saved
+                                        </x-my-button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
