@@ -125,4 +125,12 @@ class PostController extends Controller
         log::info("Post has been deleted");
         return redirect()->back();
     }
+
+    public function likesByPost($id){
+        log::info("Get all likes on the post");
+        $post = Post::with("post_likes", "user")->find($id);
+
+        log::info("Return view like.index");
+        return view("like.index", ["post" => $post]);
+    }
 }

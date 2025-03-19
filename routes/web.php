@@ -67,6 +67,7 @@ Route::name("post.")->prefix("/post")->controller(PostController::class)->group(
     Route::get("/{id}/edit", "edit")->name("edit");
     Route::put("/{id}", "update")->name("update");
     Route::delete("/{id}", "destroy")->name("destroy");
+    Route::get("/{id}/likes", "likesByPost")->name("byPost");
 });
 
 Route::name("like.")->prefix("/like")->controller(LikeController::class)->group(function(){
