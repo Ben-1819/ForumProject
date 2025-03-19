@@ -20,6 +20,7 @@ Route::get('/dashboard', function () {
 Route::controller(ChatController::class)->group(function(){
     Route::get("/chats", "chatIndex")->name("chats");
     Route::get("/chat/{id}", "userChat")->name("chat");
+    Route::delete("/chats/{id}/archive", "archiveChats")->name("archive");
 });
 
 Route::middleware('auth')->prefix("/profile")->name("profile.")->controller(ProfileController::class)->group(function () {

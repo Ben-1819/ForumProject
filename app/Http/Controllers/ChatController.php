@@ -32,4 +32,20 @@ class ChatController extends Controller
     public function userChat($userId){
         return view("messaging.user-chat", compact("userId"));
     }
+
+    public function archiveChats($user_id)
+    {
+        log::info("Getting the id of the current user");
+        $userId = Auth::user()->id;
+
+        log::info("Archiving all chats between the selected user and the current user");
+        Message::with("sender", "receiver")
+            ->where("sender_id", $userId)
+            ->where("receiver_id", $user_id)
+            ->orWhere("sender_id", $user_id)->where("receiver_id", $userId)
+            ->delete();
+
+        log::info("chats archived, returning to conversations view");
+        return redirect()->back();
+    }
 }
