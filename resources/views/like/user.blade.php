@@ -3,9 +3,9 @@
         @forelse($users_likes as $like)
         <div class="bg-white shadow-lg rounded-lg overflow-hidden border-2 border-solid border-red-500">
             <div class="p-4">
-                <a href="{{route("user.show", $like->user->id)}}">
-                    <img src="/avatars/{{$like->user->avatar}}" class="h-20 w-20 rounded-full object-scale-down object-[59%_-4px]">
-                    <p class="font-semibold">{{$like->user->username}}</p>
+                <a href="{{route("user.show", $like->post->user->id)}}">
+                    <img src="/avatars/{{$like->post->user->avatar}}" class="h-20 w-20 rounded-full object-scale-down object-[59%_-4px]">
+                    <p class="font-semibold">{{$like->post->user->username}}</p>
                 </a>
                 <h3 class="text-xl font-semibold">{{$like->post->title}}</h3>
                 <a href="{{route('post.show', $like->post->id)}}">
