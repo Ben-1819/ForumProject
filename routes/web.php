@@ -92,6 +92,6 @@ Route::name("comment.")->prefix("/comment")->controller(CommentController::class
 
 Route::name("reply.")->prefix("/reply")->controller(ReplyController::class)->group(function(){
     Route::post("/{id}", "store")->name("store");
-    Route::delete("'/{id}", "destroy")->name("delete");
+    Route::delete("'/{id}", "destroy")->name("delete")->middleware(["ReplyOwner"]);
 })->middleware(["auth", "verified"]);
 require __DIR__.'/auth.php';
