@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreated;
+use Event;
 use App\Models\Post;
 use App\Models\Friend;
 use Illuminate\Http\Request;
@@ -62,6 +64,7 @@ class PostController extends Controller
         $post->save();
 
         log::info("Go to the post show page");
+        Event::dispatch(new PostCreated($post));
 
         return redirect()->route("dashboard");
     }
