@@ -47,4 +47,12 @@
             </x-my-button>
         </a>
     </div>
+
+    <div>
+        <a href="{{route("post.index")}}">
+            <x-my-button>
+                All posts
+            </x-my-button>
+        </a>
+    </div>
 </x-app-layout>

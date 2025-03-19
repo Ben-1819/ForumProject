@@ -93,11 +93,13 @@
                             <button class="rounded-md border-2 border-solid border-red-500">Send Friend Request</button>
                         </form>
                         @endif
+                        @if($user->id != Auth::user()->id)
                         <a navigate href="{{route("chat", $user->id)}}">
                             <button class="border-2 border-solid border-red-500 rounded-md">
                                 Send {{$user->username}} a message
                             </button>
                         </a>
+                        @endif
                     @else
                     <p>This account is not public</p>
                         @if($friends == false && $pendingRequest == true)
