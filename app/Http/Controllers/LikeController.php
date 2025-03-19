@@ -42,8 +42,6 @@ class LikeController extends Controller
         $updatePost = Post::where("id", $like->post_id)->update($newPost);
 
         log::info("Post Likes:". $total);
-        $likedUser = Auth::user();
-        Event::dispatch(new PostLiked($updatePost, $likedUser));
         return redirect()->back()->with("LikeMessage", "Post Added To Liked Posts");
     }
 
