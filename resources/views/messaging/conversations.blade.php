@@ -5,7 +5,9 @@
                 Your Conversations
             </h2>
             <button class="rounded-md border-2 border-solid border-red-500">
-
+                <a href="{{route("archived.index")}}">
+                    View archived chats
+                </a>
             </button>
         </div>
     </x-slot>
