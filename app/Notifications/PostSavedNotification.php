@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PostUpdatedNotification extends Notification
+class PostSavedNotification extends Notification
 {
     use Queueable;
 
@@ -15,9 +15,11 @@ class PostUpdatedNotification extends Notification
      * Create a new notification instance.
      */
     public $post;
-    public function __construct($post)
+    public $saveUser;
+    public function __construct($post, $saveUser)
     {
         $this->post = $post;
+        $this->saveUser = $saveUser;
     }
 
     /**
@@ -36,10 +38,9 @@ class PostUpdatedNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-        ->line("Hello". $this->post->user->first_name .".")
-        ->line("Your post with the title: ". $this->post->title ." has successfully been updated")
-        ->action("You can view the post here: ", route("post.show", ["id" => $this->post->id]))
-        ->line("Thank you for updating your post!");
+            ->line('Your post '. $this->post->title ." has been saved by a user.")
+            ->action('You can view the users account here: ', route("user.show", $this->saveUser->id))
+            ->line('Thank you for using our application!');
     }
 
     /**

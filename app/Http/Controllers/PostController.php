@@ -114,6 +114,8 @@ class PostController extends Controller
         log::info("Update the post");
         $update_post = Post::where("id", $request->post_id)->update($newPost);
 
+        $post = Post::find($request->post_id);
+        Event::dispatch(new PostUpdated($post));
         log::info("Return to post show view");
         return redirect()->route("post.show", ["id" => $request->post_id]);
     }

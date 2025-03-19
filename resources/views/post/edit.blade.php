@@ -21,7 +21,7 @@
                             <div class="flex-grow">
                                 <div class="flex items-center justify-center">
                                     <div class="relative">
-                                        <input type="text" name="title" id="title" value={{$post->title}} placeholder="{{$post->title}}" class="w-full px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer" required>
+                                        <input type="text" name="title" id="title" value="{{$post->title}}" placeholder="{{$post->title}}" class="w-full px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer" required>
                                         <label for="title" class="text-sm absolute top-1/2 -translate-y-1/2 left-2 peer-focus:top-0 bg-white z-20 transition-all duration-300">Post Title:</label>
                                         @error("title")
                                             <x-errors>{{ $message }}</x-errors>
@@ -37,7 +37,7 @@
                             <div class="flex-grow">
                                 <div class="flex items-center justify-center">
                                     <div class="relative">
-                                        <textarea name="description" id="description" value={{$post->description}} placeholder="{{$post->description}}" class="w-full px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer" required></textarea>
+                                        <textarea name="description" id="description" value="{{$post->description}}" placeholder="{{$post->description}}" class="w-full px-2 rounded-md border border-red-300 hover:border-red-500 focus:border-red-500 focus:ring-red-500 peer" required>{{$post->description}}</textarea>
                                         <label for="description" class="text-sm absolute top-1/2 -translate-y-1/2 left-2 peer-focus:top-0 bg-white z-20 transition-all duration-300">Post Contents: </label>
                                         @error("description")
                                             <x-errors>{{ $message }}</x-errors>

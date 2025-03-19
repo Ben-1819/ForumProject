@@ -172,6 +172,7 @@
                             Reply
                         </a>
                     </x-my-button>
+                    <p class="text-left">{{count($comment->replies)}} replies</p>
                 </div>
                 <div class="flex items-left justify-between text-sm text-gray-500">
                     {{$comment->created_at}}

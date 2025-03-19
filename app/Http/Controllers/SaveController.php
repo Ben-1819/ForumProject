@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostSaved;
+use Event;
 use App\Models\Post;
 use App\Models\Save;
 use Illuminate\Support\Facades\Log;
@@ -19,6 +21,11 @@ class SaveController extends Controller
         $save->save();
 
         log::info("Post saved");
+
+        $post = $save->post;
+        $user = $save->user;
+
+        Event::dispatch(new PostSaved($post, $user));
         return redirect()->back()->with("SaveMessage", "Post Added To Saved Posts");
     }
 
