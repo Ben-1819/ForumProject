@@ -86,7 +86,7 @@ Route::name("save.")->prefix("/save")->controller(SaveController::class)->group(
 
 Route::name("comment.")->prefix("/comment")->controller(CommentController::class)->group(function(){
     Route::post("/{id}", "store")->name("store");
-    Route::delete("/{id}", "destroy")->name("delete");
+    Route::delete("/{id}", "destroy")->name("delete")->middleware(["CommentOwner"]);
     Route::get("/{id}/show", "show")->name("show");
 })->middleware(["auth", "verified"]);
 
