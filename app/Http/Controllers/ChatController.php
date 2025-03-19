@@ -80,11 +80,27 @@ class ChatController extends Controller
         log::info("Restoring all archived chats between the selected user and the current user");
         Message::with("sender", "receiver")
             ->withTrashed()
+            ->whereNotNull("deleted_at")
             ->where("sender_id", $userId)
             ->where("receiver_id", $user_id)
-            ->orWhere("sender_id", $user_id)->where("receiver_id", $userId)
+            ->orWhere("sender_id", $user_id)->where("receiver_id", $userId)->whereNotNull("deleted_at")
             ->restore();
 
         return redirect()->back()->with("message", "Chats Restored Successfully");
+    }
+
+    public function deleteArchived($user_id){
+        log::info("Get the id of the current user");
+        $userId = Auth::user()->id;
+
+        log::info("Deleting all archived chats between the current user and the selected user");
+        Message::with("sender", "receiver")
+            ->withTrashed()
+            ->whereNotNull("deleted_at")
+            ->where("sender_id", $userId)
+            ->where("receiver_id", $user_id)
+            ->orWhere("sender_id", $user_id)->where("receiver_id", $userId)->whereNotNull("deleted_at")
+            ->forceDelete();
+        return redirect()->back()->with("message", "Chats permanently deleted");
     }
 }

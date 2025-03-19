@@ -52,7 +52,25 @@
                                             </form>
                                         </td>
                                         <td class="border border-gray-300 px-4 py-2 relative">
-
+                                            <form action="{{route("deleteArchived", $otherUser->id)}}" method="post">
+                                                @csrf
+                                                @method("delete")
+                                                <button>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+                                                        <!-- Trash Can Icon -->
+                                                        <rect x="30" y="40" width="40" height="40" rx="5" ry="5" fill="#CCCCCC" stroke="#999999" stroke-width="2"/>
+                                                        <line x1="30" y1="40" x2="70" y2="40" stroke="#999999" stroke-width="2"/>
+                                                        <line x1="35" y1="40" x2="35" y2="20" stroke="#999999" stroke-width="2"/>
+                                                        <line x1="65" y1="40" x2="65" y2="20" stroke="#999999" stroke-width="2"/>
+                                                        <rect x="40" y="10" width="20" height="10" rx="2" ry="2" fill="#666666"/>
+                                                        <!-- Chat Bubble -->
+                                                        <ellipse cx="50" cy="55" rx="20" ry="10" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+                                                        <text x="50" y="60" font-size="8" text-anchor="middle" fill="#000000">Chat</text>
+                                                        <!-- Trash Can Lid -->
+                                                        <rect x="30" y="15" width="40" height="5" rx="2" ry="2" fill="#666666"/>
+                                                    </svg>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

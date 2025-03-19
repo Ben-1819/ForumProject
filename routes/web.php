@@ -23,6 +23,7 @@ Route::controller(ChatController::class)->group(function(){
     Route::delete("/chats/{id}/archive", "archiveChats")->name("archive");
     Route::get("/chats/archived", "archivedIndex")->name("archived.index");
     Route::patch("/chats/{id}/restore", "restoreChats")->name("restoreArchived");
+    Route::delete("/chats/{id}/delete", "deleteArchived")->name("deleteArchived");
 });
 
 Route::middleware('auth')->prefix("/profile")->name("profile.")->controller(ProfileController::class)->group(function () {
