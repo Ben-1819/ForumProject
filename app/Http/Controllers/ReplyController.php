@@ -31,4 +31,14 @@ class ReplyController extends Controller
         log::info("Return to previous view with success message");
         return redirect()->back()->with("ReplyMessage", "Reply successfully created");
     }
+
+    public function destroy($id){
+        log::info("Deleting reply with an id of: {id}", ["id" => $id]);
+
+        Replies::find($id)->delete();
+
+        log::info("Reply successfully delete");
+        log::info("Return to previous view with success message");
+        return redirect()->back()->with("ReplyMessage", "Reply successfully deleted");
+    }
 }
