@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\SaveController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChatController;
@@ -83,6 +84,10 @@ Route::name("save.")->prefix("/save")->controller(SaveController::class)->group(
 Route::name("comment.")->prefix("/comment")->controller(CommentController::class)->group(function(){
     Route::post("/{id}", "store")->name("store");
     Route::delete("/{id}", "destroy")->name("delete");
+    Route::get("/{id}/show", "show")->name("show");
 });
 
+Route::name("reply.")->prefix("/reply")->controller(ReplyController::class)->group(function(){
+    Route::post("/{id}", "store")->name("store");
+});
 require __DIR__.'/auth.php';

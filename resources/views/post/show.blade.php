@@ -163,6 +163,14 @@
                             </button>
                         </form>
                     @endif
+                    <x-my-button>
+                        <a href="{{route("comment.show", $comment->id)}}">
+                            Reply
+                        </a>
+                    </x-my-button>
+                </div>
+                <div class="flex items-left justify-between text-sm text-gray-500">
+                    {{$comment->created_at}}
                 </div>
                 <hr>
             @empty
