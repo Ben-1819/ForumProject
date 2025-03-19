@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PostCreated;
+use App\Events\PostUpdated;
 use Event;
 use App\Models\Post;
 use App\Models\Friend;

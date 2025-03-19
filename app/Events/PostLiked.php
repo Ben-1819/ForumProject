@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PostUpdated
+class PostLiked
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -18,9 +18,11 @@ class PostUpdated
      * Create a new event instance.
      */
     public $post;
-    public function __construct($post)
+    public $likeUser;
+    public function __construct($post, $likeUser)
     {
         $this->post = $post;
+        $this->likeUser = $likeUser;
     }
 
     /**

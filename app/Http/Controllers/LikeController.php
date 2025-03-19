@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostLiked;
+use Event;
 use App\Models\Post;
 use App\Models\Like;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
@@ -39,6 +42,8 @@ class LikeController extends Controller
         $updatePost = Post::where("id", $like->post_id)->update($newPost);
 
         log::info("Post Likes:". $total);
+        $likedUser = Auth::user();
+        Event::dispatch(new PostLiked($updatePost, $likedUser));
         return redirect()->back()->with("LikeMessage", "Post Added To Liked Posts");
     }
 
