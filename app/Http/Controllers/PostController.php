@@ -133,4 +133,12 @@ class PostController extends Controller
         log::info("Return view like.index");
         return view("like.index", ["post" => $post]);
     }
+
+    public function whoSavedPost($id){
+        log::info("Return the record for the post");
+        $post = Post::with("saves", "user")->find($id);
+
+        log::info("Return view save.index");
+        return view("save.index", compact("post"));
+    }
 }
