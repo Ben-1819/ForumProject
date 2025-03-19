@@ -35,6 +35,7 @@ class ChatController extends Controller
 
         log::info("Retrieve all of the users archived chats");
         $chats = Message::withTrashed()
+            ->whereNotNull("deleted_at")
             ->where(function($query) use ($userId){
                 $query->where("sender_id", $userId)
                     ->orWhere("receiver_id", $userId);
@@ -69,5 +70,21 @@ class ChatController extends Controller
 
         log::info("chats archived, returning to conversations view");
         return redirect()->back();
+    }
+
+    public function restoreChats($user_id)
+    {
+        log::info("Getting the id of the current user");
+        $userId = Auth::user()->id;
+
+        log::info("Restoring all archived chats between the selected user and the current user");
+        Message::with("sender", "receiver")
+            ->withTrashed()
+            ->where("sender_id", $userId)
+            ->where("receiver_id", $user_id)
+            ->orWhere("sender_id", $user_id)->where("receiver_id", $userId)
+            ->restore();
+
+        return redirect()->back()->with("message", "Chats Restored Successfully");
     }
 }
