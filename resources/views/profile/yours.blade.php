@@ -1,7 +1,5 @@
 <?php
-    use App\Models\Post;
     use Spatie\Permission\Models\Role;
-    $your_posts = Post::where("user_id", request()->user()->id)->get();
 ?>
 
 <x-app-layout>
@@ -39,42 +37,40 @@
                 </form>
             </div>
             <div class="max-w-xl">
-                @if(count($your_posts) > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 place-items-center">
-                    @foreach($your_posts as $post)
-                    <div class="bg-white shadow-lg rounded-lg overflow-hidden border-2 border-solid border-red-500">
-                        <div class="p-4">
-                            <a href="{{route("user.show", $user->id)}}">
-                                <img src="/avatars/{{$user->avatar}}" class="h-20 w-20 rounded-full object-scale-down object-[59%_-4px]">
-                                <p class="font-semibold">{{$user->username}}</p>
-                            </a>
-                            <h3 class="text-xl font-semibold">{{$post->title}}</h3>
-                            <a href="{{route('post.show', $post->id)}}">
-                                <button class="rounded-md border-2 border-solid border-red-500">
-                                    View Post
-                                </button>
-                            </a>
-                            <a href="{{route("post.edit", $post->id)}}">
-                                <button class="rounded-md border-2 border-solid border-red-500">
-                                    Edit Post
-                                </button>
-                            </a>
-                            <form action="{{route("post.destroy", $post->id)}}" method="post">
-                                @csrf
-                                @method("delete")
-                                <button class="rounded-md border-2 border-solid border-red-500">
-                                    Delete Post
-                                </button>
-                            </form>
+                @forelse ($user->posts as $post)
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 place-items-center">
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden border-2 border-solid border-red-500">
+                            <div class="p-4">
+                                <a href="{{route("user.show", $user->id)}}">
+                                    <img src="/avatars/{{$user->avatar}}" class="h-20 w-20 rounded-full object-scale-down object-[59%_-4px]">
+                                    <p class="font-semibold">{{$user->username}}</p>
+                                </a>
+                                <h3 class="text-xl font-semibold">{{$post->title}}</h3>
+                                <a href="{{route('post.show', $post->id)}}">
+                                    <button class="rounded-md border-2 border-solid border-red-500">
+                                        View Post
+                                    </button>
+                                </a>
+                                <a href="{{route("post.edit", $post->id)}}">
+                                    <button class="rounded-md border-2 border-solid border-red-500">
+                                        Edit Post
+                                    </button>
+                                </a>
+                                <form action="{{route("post.destroy", $post->id)}}" method="post">
+                                    @csrf
+                                    @method("delete")
+                                    <button class="rounded-md border-2 border-solid border-red-500">
+                                        Delete Post
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    @endforeach
-                </div>
-                @else
-                <div>
-                    <h1 class="text-xl font-bold">You have no posts</h1>
-                </div>
-                @endif
+                @empty
+                    <div>
+                        <h1 class="text-xl font-bold">You have no posts</h1>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
