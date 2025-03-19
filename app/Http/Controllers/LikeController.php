@@ -39,7 +39,7 @@ class LikeController extends Controller
         $updatePost = Post::where("id", $like->post_id)->update($newPost);
 
         log::info("Post Likes:". $total);
-        return redirect()->back();
+        return redirect()->back()->with("LikeMessage", "Post Added To Liked Posts");
     }
 
     public function removeLike($id){
@@ -66,7 +66,7 @@ class LikeController extends Controller
         $updatePost = Post::where("id", $id)->update($newPost);
 
         log::info("Post Likes:". $total);
-        return redirect()->back();
+        return redirect()->back()->with("LikeMessage", "Post Removed From Liked Posts");
     }
 
     public function yourLikes(){

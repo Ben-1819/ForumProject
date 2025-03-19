@@ -34,13 +34,13 @@ class CommentController extends Controller
         log::info("Comment contents: {comment}", ["comment" => $comment]);
 
         log::info("Returning to viewing the post");
-        return redirect()->route("post.show", ["id" => $comment->post_id]);
+        return redirect()->route("post.show", ["id" => $comment->post_id])->with("CommentMessage", "Comment added to post");
     }
 
     public function destroy($id){
         log::info("Deleting comment with id of: {id}", ["id" => $id]);
         Comment::find($id)->delete();
         log::info("Comment Deleted");
-        return redirect()->back();
+        return redirect()->back()->with("CommentMessage", "Comment removed from post");
     }
 }

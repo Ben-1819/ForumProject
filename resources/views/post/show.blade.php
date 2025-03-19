@@ -46,6 +46,15 @@
             <div>
                 <p class="font-semibold text-gray-800">{{$user->username}}</p>
             </div>
+            @if(session("SaveMessage"))
+                <x-errors>{{session("SaveMessage")}}</x-errors>
+            @endif
+            @if(session("LikeMessage"))
+                <x-errors>{{session("LikeMessage")}}</x-errors>
+            @endif
+            @if(session("CommentMessage"))
+                <x-errors>{{session("CommentMessage")}}</x-errors>
+            @endif
         </div>
 
         <!-- Post Title -->

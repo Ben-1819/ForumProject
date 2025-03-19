@@ -19,7 +19,7 @@ class SaveController extends Controller
         $save->save();
 
         log::info("Post saved");
-        return redirect()->back();
+        return redirect()->back()->with("SaveMessage", "Post Added To Saved Posts");
     }
 
     public function unsavePost($id){
@@ -28,7 +28,7 @@ class SaveController extends Controller
         Save::where("post_id", $id)->where("user_id", request()->user()->id)->delete();
 
         log::info("Record deleted from the saves table");
-        return redirect()->back();
+        return redirect()->back()->with("SaveMessage", "Post Removed From Saved Posts");
     }
 
     public function yourSaves(){
