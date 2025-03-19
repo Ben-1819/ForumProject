@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 
 use App\Http\Requests\StoreCommentRequest;
-
+use App\Events\CommentPosted;
+use Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ class CommentController extends Controller
         log::info("User that commented: {uder_id}", ["user_id" => $comment->user_id]);
         log::info("Comment contents: {comment}", ["comment" => $comment]);
 
+        Event::dispatch(new CommentPosted($comment->post, $comment));
         log::info("Returning to viewing the post");
         return redirect()->route("post.show", ["id" => $comment->post_id])->with("CommentMessage", "Comment added to post");
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\FriendRequest;
+use Event;
 use App\Models\Friend;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -61,6 +63,8 @@ class FriendController extends Controller
             ]);
             $friend->save();
             log::info("Friend request sent");
+            Event::dispatch(new FriendRequest($user));
+
             return back()->with("Message", "Friend Request Sent");
         }
     }

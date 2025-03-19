@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Replies;
+use App\Models\User;
 use App\Http\Requests\PostReplyRequest;
+use App\Events\CommentReply;
+use Event;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +31,8 @@ class ReplyController extends Controller
         log::info("User who replied: {user_id}", ["user_id" => $reply->user_id]);
         log::info("Contents of reply: {contents}", ["contents" => $reply->contents]);
 
+        $user = User::find($reply->user_id);
+        Event::dispatch(new CommentReply($reply, $user));
         log::info("Return to previous view with success message");
         return redirect()->back()->with("ReplyMessage", "Reply successfully created");
     }
