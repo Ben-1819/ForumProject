@@ -22,13 +22,13 @@ class PostController extends Controller
     }
 
     public function friendPosts(){
-        $all_friends = Friend::where("user1_id", request()->user()->id)->orWhere("user2_id", request()->user()->id)
+        $all_friends = Friend::with("user")->where("user1_id", request()->user()->id)->orWhere("user2_id", request()->user()->id)
             ->where("status", "accepted")
             ->get();
 
         $friends_posts = collect();
         foreach($all_friends as $friend){
-            $friend_posts = Post::whereIn('user_id', [$friend->user1_id, $friend->user2_id])
+            $friend_posts = Post::with("user")->whereIn('user_id', [$friend->user1_id, $friend->user2_id])
                 ->where("user_id", "!=", request()->user()->id)
                 ->get();
 
