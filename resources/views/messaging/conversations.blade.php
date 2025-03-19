@@ -4,11 +4,11 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Your Conversations
             </h2>
-            <button class="rounded-md border-2 border-solid border-red-500">
+            <x-my-button>
                 <a href="{{route("archived.index")}}">
                     View archived chats
                 </a>
-            </button>
+            </x-my-button>
         </div>
     </x-slot>
     <div class="py-12">

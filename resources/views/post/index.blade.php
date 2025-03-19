@@ -41,9 +41,9 @@
                 </a>
                 <h3 class="text-xl font-semibold">{{$post->title}}</h3>
                 <a href="{{route('post.show', $post->id)}}">
-                    <button class="rounded-md border-2 border-solid border-red-500">
+                    <x-my-button>
                         View Post
-                    </button>
+                    </x-my-button>
                 </a>
             </div>
         </div>

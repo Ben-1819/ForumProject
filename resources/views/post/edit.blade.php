@@ -52,7 +52,7 @@
                         <div class="flex">
                             <div class="flex-grow">
                                 <div class="pt-5 flex items-center justify-center">
-                                    <button class="border-2 border-solid border-red-500">Create Post</button>
+                                    <x-my-button>Create Post</x-my-button>
                                 </div>
                             </div>
                         </div>

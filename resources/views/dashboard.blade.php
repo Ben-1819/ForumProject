@@ -17,34 +17,34 @@
 
     <div class="py-12">
         <a href="{{route("user.index")}}">
-            <button class="rounded-md border-2 border-solid border-red-500">
+            <x-my-button>
                 All Users
-            </button>
+            </x-my-button>
         </a>
         <a href="{{route("friend.requests")}}">
-            <button class="rounded-md border-2 border-solid border-red-500">
+            <x-my-button>
                 Your Friend Requests
-            </button>
+            </x-my-button>
         </a>
         <a href="{{route("friend.index")}}">
-            <button class="rounded-md border-2 border-solid border-red-500">
+            <x-my-button>
                 Your Friends
-            </button>
+            </x-my-button>
         </a>
         <a href="{{route("friend.favourites")}}">
-            <button class="rounded-md border-2 border-solid border-red-500">
+            <x-my-button>
                 Your Favourite Friends
-            </button>
+            </x-my-button>
         </a>
         <a href="{{route("post.create")}}">
-            <button class="rounded-md border-2 border-solid border-red-500">
+            <x-my-button>
                 Create A Post
-            </button>
+            </x-my-button>
         </a>
         <a href="{{route("chats")}}">
-            <button class="rounded-md border-2 border-solid border-red-500">
+            <x-my-button>
                 Message Other Users
-            </button>
+            </x-my-button>
         </a>
     </div>
 </x-app-layout>

@@ -26,19 +26,19 @@
                 <form action="{{route("friend.addFavourite", $friend->id)}}" method="post">
                     @csrf
                     @method("patch")
-                    <button class="rounded-md border-2 border-solid border-red-500">Favourite Friend</button>
+                    <x-my-button>Favourite Friend</x-my-button>
                 </form>
                 @else
                 <form action="{{route("friend.removeFavourite", $friend->id)}}" method="post">
                     @csrf
                     @method("patch")
-                    <button class="rounded-md border-2 border-solid border-red-500">Remove Favourite</button>
+                    <x-my-button>Remove Favourite</x-my-button>
                 </form>
                 @endif
                 <form action="{{route("friend.remove", $friend->id)}}" method="post">
                     @csrf
                     @method("delete")
-                    <button class="rounded-md border-2 border-solid border-red-500">Remove Friend</button>
+                    <x-my-button>Remove Friend</x-my-button>
                 </form>
             </div>
         </div>

@@ -99,17 +99,17 @@
                 @if($saved == false)
                 <form action="{{route("save.post", $post->id)}}" method="post">
                     @csrf
-                    <button class="rounded-md border-2 border-solid border-red-500">
+                    <x-my-button>
                         Save Post
-                    </button>
+                    </x-my-button>
                 </form>
                 @else
                 <form action="{{route("save.remove", $post->id)}}" method="post">
                     @csrf
                     @method("delete")
-                    <button class="rounded-md border-2 border-solid border-red-500">
+                    <x-my-button>
                         Unsave Post
-                    </button>
+                    </x-my-button>
                 </form>
                 @endif
             </div>
@@ -134,7 +134,7 @@
                         <x-errors>{{ $message }}</x-errors>
                     @enderror
                 </div>
-                <button class="rounded-md border-2 border-solid border-red-500">Post your comment</button>
+                <x-my-button>Post your comment</x-my-button>
             </form>
         </div>
         <div class="flex-items-center space-x-4 mb-6 relative" id="comments">
