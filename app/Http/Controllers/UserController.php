@@ -28,4 +28,12 @@ class UserController extends Controller
         log::info("Return the user.show view");
         return view("profile.show", compact("user"));
     }
+
+    public function delete($id){
+        log::info("Deleting the user with the selected id");
+        User::find($id)->delete();
+
+        log::info("User deleted");
+        return redirect()->back();
+    }
 }

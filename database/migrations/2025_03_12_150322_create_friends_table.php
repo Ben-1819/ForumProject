@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('friends', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user1_id")->constrained("users");
-            $table->foreignId("user2_id")->constrained("users");
+            $table->foreignId("user1_id");
+            $table->foreignId("user2_id");
             $table->boolean("favourite")->default("false");
             $table->string("status")->default("pending");
             $table->timestamps();

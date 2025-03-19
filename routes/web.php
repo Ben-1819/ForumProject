@@ -44,6 +44,7 @@ Route::middleware('auth')->prefix("/profile")->name("profile.")->controller(Prof
 Route::name("user.")->prefix("/user")->controller(UserController::class)->group(function(){
     Route::get("/index", "index")->name("index");
     Route::get("/{id}", "show")->name("show");
+    Route::delete("/{id}", "delete")->name("delete");
 
 });
 

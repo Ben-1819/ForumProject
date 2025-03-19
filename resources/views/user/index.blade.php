@@ -10,6 +10,16 @@
                         <h2 class="font-semibold text-gray-800">{{$user->username}}</h2>
                     </div>
                 </a>
+
+                @hasrole("superadmin")
+                    <form action="{{route("user.delete", $user->id)}}" method="post">
+                        @csrf
+                        @method("delete")
+                        <x-my-button>
+                            Delete User
+                        </x-my-button>
+                    </form>
+                @endhasrole
             </div>
         </div>
         @endforeach
