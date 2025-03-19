@@ -71,7 +71,8 @@ class LikeController extends Controller
 
     public function yourLikes(){
         log::info("Get all records from the likes table where the user_id is the same as the current users");
-        $users_likes = Like::where("user_id", request()->user()->id)->get();
+        $users_likes = Like::with("post", "user")->where("user_id", request()->user()->id)
+            ->paginate();
 
         log::info("Return view users likes");
         return view("like.user", compact("users_likes"));
