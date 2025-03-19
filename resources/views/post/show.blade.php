@@ -156,7 +156,7 @@
                     <p class="text-lg text-gray-700 mb-6 break-words">
                         {{$comment->comment}}
                     </p>
-                    @if($comment->user_id === Auth()->user()->id)
+                    @if($comment->user_id === Auth()->user()->id || $post->user_id === Auth()->user()->id || request()->user()->hasrole("superadmin"))
                         <form action="{{route("comment.delete", $comment->id)}}" method="post">
                             @csrf
                             @method("delete")
