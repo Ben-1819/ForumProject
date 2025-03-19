@@ -132,11 +132,6 @@
                                         View Post
                                     </button>
                                 </a>
-                                <a href="{{route("post.edit", $post->id)}}">
-                                    <button class="rounded-md border-2 border-solid border-red-500">
-                                        Edit Post
-                                    </button>
-                                </a>
                             </div>
                         </div>
                         @endforeach
