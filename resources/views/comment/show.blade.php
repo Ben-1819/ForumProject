@@ -2,13 +2,15 @@
     <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <!-- Post Header -->
         <div class="flex items-center space-x-4 mb-6">
-            <!-- Profile Picture -->
-            <img src="/avatars/{{$comment->user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full">
+            <a href="{{route("user.show", $comment->user->id)}}" class="flex flex-row">
+                <!-- Profile Picture -->
+                <img src="/avatars/{{$comment->user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full">
 
-            <!-- User Info -->
-            <div>
-                <p class="font-semibold text-gray-800">{{$comment->user->username}}</p>
-            </div>
+                <!-- User Info -->
+                <div>
+                    <p class="font-semibold text-gray-800">{{$comment->user->username}}</p>
+                </div>
+            </a>
             @if(session("ReplyMessage"))
                 <x-errors>{{session("ReplyMessage")}}</x-errors>
             @endif
@@ -51,12 +53,12 @@
             <hr>
             @forelse($comment->replies as $reply)
                 <div class="flex flex-row">
-                    <div>
+                    <a href="{{route("user.show", $reply->user->id)}}" class="flex flex-row">
                         <img src="/avatars/{{$reply->user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full ">
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">{{$reply->user->username}}</p>
-                    </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">{{$reply->user->username}}</p>
+                        </div>
+                    </a>
                 </div>
                 <div class="flex flex-row">
                     <p class="text-lg text-gray-700 mb-6 break-words">

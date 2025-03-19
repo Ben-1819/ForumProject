@@ -23,7 +23,7 @@ class UserController extends Controller
 
     public function show($id){
         log::info("Get the record belonging to the selected user");
-        $user = User::find($id);
+        $user = User::with("posts")->find($id);
 
         log::info("Return the user.show view");
         return view("profile.show", compact("user"));

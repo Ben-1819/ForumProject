@@ -30,8 +30,8 @@ Route::controller(ChatController::class)->group(function(){
 
 Route::middleware('auth')->prefix("/profile")->name("profile.")->controller(ProfileController::class)->group(function () {
     Route::get('', "edit")->name('edit');
-    Route::get("/show", "show")->name("show");
-    Route::get("/show/yours", "showYours")->name("showYours");
+    Route::get("/show/{id}", "show")->name("show");
+    Route::get("/show/{id}/yours", "showYours")->name("showYours");
     Route::get("/bio", "editBio")->name("editBio");
     Route::get("/picture", "editPicture")->name("editPicture");
     Route::patch("/picture/delete", "updatePicture")->name("updatePicture");

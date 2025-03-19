@@ -1,5 +1,5 @@
 @if(auth()->check())
-<a href="{{route("profile.show")}}">
+<a href="{{route("profile.show", Auth::user()->id)}}">
     <img src="/avatars/{{ Auth::user()->avatar }}" class="h-20 w-20 rounded-full object-scale-down object-[59%_-4px]">
 </a>
 @else

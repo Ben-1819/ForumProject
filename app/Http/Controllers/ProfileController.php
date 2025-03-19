@@ -32,10 +32,10 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function showYours(){
-        return view("profile.yours", [
-            "user" => request()->user(),
-        ]);
+    public function showYours($id){
+        $user = User::with("posts")->find($id);
+
+        return view("profile.yours", compact("user"));
     }
     /**
      * Update the user's profile information.

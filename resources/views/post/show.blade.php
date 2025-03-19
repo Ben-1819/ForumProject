@@ -40,12 +40,14 @@
         <!-- Post Header -->
         <div class="flex items-center space-x-4 mb-6">
             <!-- Profile Picture -->
-            <img src="/avatars/{{$user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full">
+            <a href="{{route("user.show", $user->id)}}" class="flex flex-row">
+                <img src="/avatars/{{$user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full">
 
             <!-- User Info -->
             <div>
                 <p class="font-semibold text-gray-800">{{$user->username}}</p>
             </div>
+            </a>
             @if(session("SaveMessage"))
                 <x-errors>{{session("SaveMessage")}}</x-errors>
             @endif
@@ -141,12 +143,14 @@
             <hr>
             @forelse($post->comments as $comment)
                 <div class="flex flex-row">
-                    <div>
-                        <img src="/avatars/{{$comment->user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full ">
-                    </div>
-                    <div>
-                        <p class="font-semibold text-gray-800">{{$comment->user->username}}</p>
-                    </div>
+                    <a href="{{route("user.show", $comment->user->id)}}" class="flex flex-row">
+                        <div>
+                            <img src="/avatars/{{$comment->user->avatar}}" alt="User profile" class="w-12 h-12 rounded-full ">
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">{{$comment->user->username}}</p>
+                        </div>
+                    </a>
                 </div>
                 <div class="flex flex-row">
                     <p class="text-lg text-gray-700 mb-6 break-words">
