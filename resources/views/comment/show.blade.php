@@ -1,5 +1,8 @@
 <x-app-layout>
     <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
+        <a href="{{route("post.show", $comment->post->id)}}">
+            <x-my-button>Back</x-my-button>
+        </a>
         <!-- Post Header -->
         <div class="flex items-center space-x-4 mb-6">
             <a href="{{route("user.show", $comment->user->id)}}" class="flex flex-row">

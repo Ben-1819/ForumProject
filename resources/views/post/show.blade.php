@@ -57,6 +57,9 @@
             @if(session("CommentMessage"))
                 <x-errors>{{session("CommentMessage")}}</x-errors>
             @endif
+            @error("comment")
+                <x-errors>{{ $message }}</x-errors>
+            @enderror
         </div>
 
         <!-- Post Title -->
@@ -82,7 +85,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 3.498c.3-1.057 1.804-1.057 2.105 0l1.173 3.727c.196.634.757 1.035 1.411 1.035h3.897c1.076 0 1.52 1.372.728 2.054l-3.15 2.43c-.415.318-.588.87-.459 1.41l1.07 3.89c.283 1.035-.876 1.9-1.754 1.343l-3.441-2.558c-.532-.391-1.221-.347-1.67.141l-3.11 3.647c-.81.957-2.394.363-2.396-1.023v-3.723c0-.543-.217-1.063-.608-1.454l-3.125-3.267c-1.019-.868-.499-2.474.918-2.474h3.845c.736 0 1.4-.471 1.643-1.163l1.18-3.637z"/>
                         </svg>
                     </button>
-                    <span>{{$post->likes}}</span>
                 </form>
                 @else
                 <form action="{{route("like.remove", $post->id)}}" method="post">
@@ -93,9 +95,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 3.498c.3-1.057 1.804-1.057 2.105 0l1.173 3.727c.196.634.757 1.035 1.411 1.035h3.897c1.076 0 1.52 1.372.728 2.054l-3.15 2.43c-.415.318-.588.87-.459 1.41l1.07 3.89c.283 1.035-.876 1.9-1.754 1.343l-3.441-2.558c-.532-.391-1.221-.347-1.67.141l-3.11 3.647c-.81.957-2.394.363-2.396-1.023v-3.723c0-.543-.217-1.063-.608-1.454l-3.125-3.267c-1.019-.868-.499-2.474.918-2.474h3.845c.736 0 1.4-.471 1.643-1.163l1.18-3.637z"/>
                         </svg>
                     </button>
-                    <span>{{$post->likes}}</span>
                 </form>
                 @endif
+                <a href="{{route("post.byPost", $post->id)}}">
+                    <span>{{$post->likes}}</span>
+                </a>
             </div>
             <div>
                 @if($saved == false)
